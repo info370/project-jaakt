@@ -1,0 +1,45 @@
+---
+title: "Dog name analysis"
+output: html_notebook
+---
+
+
+This code groups dog name data by breed name and sorts by the breed name alphabetically and count of the animal name descending
+```{r}
+library(dplyr)
+dogdata = read.csv("dogNamesCleaned.csv")
+
+breedData <- group_by(dogdata, BreedName, AnimalName) %>% tally(sort = T) %>% ungroup() %>% group_by(BreedName) %>% arrange(desc(n)) %>% arrange(BreedName)
+
+```
+
+This code calculates the average length of dog name overall, which is 4 characters 
+```{r}
+x <- c(dogdata$AnimalName)
+dogdata$length = nchar(x)
+dogdata <- dogdata %>% filter(!is.na(AnimalName))
+meanNameLength <- mean(dogdata$length)
+```
+
+This code sorts by most popular dog names overall
+```{r}
+popularData <- group_by(dogdata, AnimalName) %>% tally(sort = T) %>% ungroup() %>% group_by(AnimalName) %>% arrange(desc(n))
+  
+```
+
+This code sorts by most popular girl dog names
+```{r}
+popularGirlData <- group_by(dogdata, AnimalGender, AnimalName) %>% filter(AnimalGender == 'F') %>% tally(sort = T) %>% ungroup() %>% group_by(AnimalGender) %>% arrange(desc(n))
+```
+
+This code sorts by most popular boy dog names
+```{r}
+popularBoyData <- group_by(dogdata, AnimalGender, AnimalName) %>% filter(AnimalGender == 'M') %>% tally(sort = T) %>% ungroup() %>% group_by(AnimalGender) %>% arrange(desc(n))
+```
+
+This code calculates the most popular dog names per borough
+
+```{r}
+boroughData <- group_by(dogdata, Borough, AnimalName) %>% tally(sort = T) %>% ungroup() %>% group_by(Borough) %>% arrange(desc(n)) %>% arrange(Borough)
+```
+
