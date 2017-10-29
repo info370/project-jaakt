@@ -1,0 +1,5 @@
+.DS_Store
+songanalysis/assets/*
+songanalysis/*.html
+!songanalysis/assets/.gitkeep
+
