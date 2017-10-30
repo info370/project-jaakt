@@ -71,3 +71,10 @@ boroughTopThreeData
 
 ```
 
+This code calculates the average name length per borough.
+```{r}
+boroughData <- group_by(dogdata, Borough, AnimalName) %>% tally(sort = T) %>% ungroup() %>% group_by(Borough) %>% arrange(desc(n)) %>% arrange(Borough)
+
+tapply(boroughData$n, boroughData$Borough, mean)
+
+```
