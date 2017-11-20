@@ -4,42 +4,129 @@ output: html_notebook
 ---
 
 
-This code groups dog name data by breed name and sorts by the breed name alphabetically and count of the animal name descending
+This code reads in the data
 ```{r}
 library(dplyr)
-dogdata = read.csv("dogNamesCleaned.csv")
-
-breedData <- group_by(dogdata, BreedName, AnimalName) %>% tally(sort = T) %>% ungroup() %>% group_by(BreedName) %>% arrange(desc(n)) %>% arrange(BreedName)
+dogdata = read.csv("dogNamesCleaned.csv", header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
 
 ```
 
-This code calculates the average length of dog name overall, which is 4 characters 
+This code tells us what kind of data type is in each column
+```{r}
+sapply(dogdata, class)
+sapply(dogdata, typeof)
+
+```
+
+
+This code groups dog name data by breed name and sorts by the breed name alphabetically, then adds count of the animal name descending. Also gets top three names per dog breed.
+```{r}
+breedData <- group_by(dogdata, BreedName, AnimalName) %>% tally(sort = T) %>% ungroup() %>% group_by(BreedName) %>% arrange(desc(n)) %>% arrange(BreedName)
+breedData
+
+breedTopThreeData <- breedData %>% group_by(BreedName) %>% slice(1:3)
+breedTopThreeData
+
+```
+
+This code calculates the average length of dog name overall, which is 5 characters. Also adds new column to the data called "length", which is the length of the name.
 ```{r}
 x <- c(dogdata$AnimalName)
-dogdata$length = nchar(x)
+dogdata$length <- nchar(x)
 dogdata <- dogdata %>% filter(!is.na(AnimalName))
-meanNameLength <- mean(dogdata$length)
+meanNameLength <- round(mean(dogdata$length))
+
+meanNameLength
 ```
+
+This code lists only the names that are the average name length. One list for each gender. Listed in descending order, from most popular name to least.
+```{r}
+averageNamesMale <- dogdata %>%
+  filter(length == meanNameLength) %>%
+  filter(AnimalGender == 'M') %>%
+  group_by(AnimalName) %>%
+  tally(sort = T) %>%
+  arrange(desc(n))
+
+averageNamesMale
+
+averageNamesFemale <- dogdata %>%
+  filter(length == meanNameLength) %>%
+  filter(AnimalGender == 'F') %>%
+  group_by(AnimalName) %>%
+  tally(sort = T) %>%
+  arrange(desc(n))
+
+averageNamesFemale
+
+```
+
 
 This code sorts by most popular dog names overall
 ```{r}
-popularData <- group_by(dogdata, AnimalName) %>% tally(sort = T) %>% ungroup() %>% group_by(AnimalName) %>% arrange(desc(n))
-  
+
+popularData <- tally(group_by(dogdata, AnimalName)) %>%
+  arrange(desc(n))
+
+popularData
+
 ```
 
 This code sorts by most popular girl dog names
 ```{r}
-popularGirlData <- group_by(dogdata, AnimalGender, AnimalName) %>% filter(AnimalGender == 'F') %>% tally(sort = T) %>% ungroup() %>% group_by(AnimalGender) %>% arrange(desc(n))
+# popularGirlData <- group_by(dogdata, AnimalGender, AnimalName) %>%
+#   filter(AnimalGender == 'F') %>%
+#   tally(sort = T) %>%
+#   ungroup() %>%
+#   group_by(AnimalGender) %>%
+#   arrange(desc(n))
+
+popularGirlData <- dogdata %>%
+  filter(AnimalGender == 'F') %>%
+  group_by(AnimalName) %>%
+  tally(sort = T) %>%
+  arrange(desc(n))
+
+popularGirlData
+
 ```
 
 This code sorts by most popular boy dog names
 ```{r}
-popularBoyData <- group_by(dogdata, AnimalGender, AnimalName) %>% filter(AnimalGender == 'M') %>% tally(sort = T) %>% ungroup() %>% group_by(AnimalGender) %>% arrange(desc(n))
+popularBoyData <- dogdata %>%
+  filter(AnimalGender == 'M') %>%
+  group_by(AnimalName) %>%
+  tally(sort = T) %>%
+  arrange(desc(n))
+
+popularBoyData
+
 ```
 
-This code calculates the most popular dog names per borough
+This code calculates the most popular dog names per borough, and gets top three names per borough
 
 ```{r}
-boroughData <- group_by(dogdata, Borough, AnimalName) %>% tally(sort = T) %>% ungroup() %>% group_by(Borough) %>% arrange(desc(n)) %>% arrange(Borough)
+boroughData <- group_by(dogdata, Borough, AnimalName) %>%
+  tally(sort = T) %>%
+  ungroup() %>%
+  group_by(Borough) %>%
+  arrange(desc(n)) %>%
+  arrange(Borough)
+
+boroughData
+
+boroughTopThreeData <- boroughData %>%
+  group_by(Borough) %>%
+  slice(1:3)
+
+boroughTopThreeData
+
 ```
 
+This code calculates the average name length per borough.
+```{r}
+boroughData <- group_by(dogdata, Borough, AnimalName) %>% tally(sort = T) %>% ungroup() %>% group_by(Borough) %>% arrange(desc(n)) %>% arrange(Borough)
+
+tapply(boroughData$n, boroughData$Borough, mean)
+
+```
