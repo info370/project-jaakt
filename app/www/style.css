@@ -1,6 +1,21 @@
 .maindog {
-  font: sans-serif, arial;
-  
+  margin: 5px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  line-height: 1.42857;
+  color: #333333;
+  background-color: #fff;
+  font-weight: normal;
+}
+
+h1 {
+  border: 1.5px solid #b3e5fc;
+  padding: 10px;
+}
+
+h1, h2 {
+  font-weight: normal;
+  text-align: center;
 }
 
 .column {
