@@ -14,7 +14,7 @@ Used this crowd-sourced website for the location images/gifs
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Pokedata: Analyze em all!</title>
+  <title>Should you get a dog?</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="input.css">
   <script src="shinyjs/inject.js"></script>
@@ -24,80 +24,25 @@ Used this crowd-sourced website for the location images/gifs
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <div id="pokedex">
-  <div id="left">
-    <div id="bg_curve1_left">
-        <div id="info_button">
-            <form action="graphs.html">
-                <button>Get More Stats!</button>
-            </form>
+  <div class="maindog">
+    <h1>Should you get a dog?</h1>
+    <div class="row">
+      <div class="column">
+        <div id="bg_curve1_left">
+            <h2>Dog Ownership Survey</h2>
+            <div class="survey">
+            
+            </div>
         </div>
-    </div>
-    <div id="bg_curve2_left">
-                <div id="search_bar">
-                <span class="input input--chisato">
-					<input id="pokemon" list="pokenames" class="input__field input__field--chisato" type="text" onfocusout="this.value = '';"/>
-					<label class="input__label input__label--chisato" for="input-13">
-						<span class="input__label-content input__label-content--chisato" data-content="Pokemon Name/ID">Pokemon Name/ID</span>
-					</label>
-					<div id="pokenames_div" class="shiny-html-output">
-					  <datalist id="pokenames">
-					    <option value="test"></option>
-					    <option value="test2"></option>
-					  </datalist>
-					</div>
-				</span>
-                </div>
-    </div>
-    <div id="curve1_left">
-      <div id="buttonGlass">
-        <div id="reflect"> </div>
       </div>
-      <div id="miniButtonGlass1"></div>
-      <div id="miniButtonGlass2"></div>
-      <div id="miniButtonGlass3"></div>
-    </div>
-    <div id="curve2_left">
-      <div id="junction">
-        <div id="junction1"></div>
-        <div id="junction2"></div>
-      </div>
-    </div>
-    <div id="screen">
-      <div id="topPicture">
-        <div id="buttontopPicture1"></div>
-        <div id="buttontopPicture2"></div>
-      </div>
-      <div id="picture">
-        <div id="avatar">
-          <div id="image" class="shiny-image-output debug" style="width: 100% ; height: 100%"></div>
-        </div>
-        <div id="pokeinfo">
-            <pre id="pokedata" class="shiny-text-output noplaceholder debug"></pre>
-            <div id="types" class="shiny-html-output"></div>
-        </div>
-        <div id="radar_chart">
-            <div id="radar" class="shiny-plot-output debug" style="width: 100% ; height: 400px"></div>
+      <div class="column">
+        <div id="bg_curve1_right">
+            <h2>Survey Results</h2>
+            <div id="results">
+            </div>
         </div>
       </div>
     </div>
   </div>
-  <div id="right">
-    <div id="bg_curve1_right"></div>
-    <div id="bg_curve2_right"></div>
-    <div id="curve1_right"></div>
-    <div id="curve2_right"></div>
-        <div id="screen">
-      <div id="topPicture">
-      </div>
-      <div id="picture2">
-          <div id="location_map" class="shiny-image-output debug" ></div>
-          <div id="location_name" class="shiny-text-output noplaceholder debug"></div>
-          <div id="evo_text" class="shiny-text-output"></div>
-          <div id="evo_chain" class="shiny-html-output"></div>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>

@@ -10,22 +10,9 @@
 library(shiny)
 suppressPackageStartupMessages(library(dplyr))
 library(scales)
-source("./assets/scripts/ggradar.R")
-source("./assets/scripts/ApiTools.R")
-source("./assets/scripts/GenerationAverages.R")
-
-# -- Working Directories -------------------------------------------------#
-#                                                                         #
-# Charlie                                                                 #
-# setwd("~/Documents/School/INFO201/PokeData/")                           #
-#                                                                         #
-# Akash                                                                   #
-# setwd("~/Work/School/INFO201/PokeData/")                                #
-#                                                                         #
-# Tu                                                                      #
-# setwd('C:/Users/Tu/Desktop/Sophomore Year/Spring/INFO 201/PokeData/')   #
-#                                                                         #
-# ------------------------------------------------------------------------#
+#source("./assets/scripts/ggradar.R")
+#source("./assets/scripts/ApiTools.R")
+#source("./assets/scripts/GenerationAverages.R")
 
 # Define server logic that recieves input and modifies an output
 shinyServer(function(input, output) {
@@ -43,6 +30,7 @@ shinyServer(function(input, output) {
       pokemon.query <- QueryApi(paste0("pokemon/", tolower(input$pokemon)))
     }
   })
+  
 
   # Creates the drop down dynamically from the
   # saved csv file of all pokemon names
