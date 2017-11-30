@@ -1,0 +1,705 @@
+/*
+Used this codepen for framework of the css and then modified to our needs
+- https://codepen.io/Bidji/pen/MYdPwo
+    - by: Bidji
+
+Used this api to get all stats about the PokeMon
+- http://pokeapi.co/
+
+Used this crowd-sourced website for the location images/gifs
+- http://bulbapedia.bulbagarden.net/
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.debug {
+  /*border: dashed;*/
+}
+
+#types > * {
+  display: inline;
+  float: left;
+  padding-left: 5px;
+}
+
+body {
+  background-color: #FFFFFF !important;
+}
+
+@font-face {
+    font-family: 'PokeGB';
+    src: url('./assets/fonts/PokemonGB.tff') format('truetype'),
+         url('./assets/fonts/PokemonGB.woff') format('woff'),
+         url('./assets/fonts/PokemonGB.woff2') format('woff2');
+}
+
+@media all {
+    div#facts_overlay {
+        position: fixed; /* Sit on top of the page content */
+        display: none; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0; 
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(256,256,256,0.9);
+        z-index: 2;
+        cursor: pointer; /* Add a pointer on hover */
+    }
+    
+	div#pokedex
+	{
+		width: calc(750*1.7px);
+		margin: calc(50*1.0px) auto 0 auto;
+	}
+
+	div#left
+	{
+		width: calc(400*1.7px);
+		height: calc(500*1.7px);
+		float: left;
+		position: relative;
+		z-index: 1;
+	}
+
+	div#right
+	{
+		width: calc(350*1.7px);
+		height: calc(500*1.7px);
+		float: left;
+		position: relative;
+	  font-family: "PokeGB";
+	  font-size: 10px;
+	  text-align: center;
+	}
+
+  #evo_chain > span > img {
+    border-style: solid;
+    border-color: #494949;
+    border-width: 2px;
+    border-radius: 48px;
+    /*background-color: #ffc4bc; /*#B0B0B0; */
+    background-image: linear-gradient(
+      to bottom,
+      #ffc4bc,
+      #ffc4bc 50%,
+      #FFFFFF 50%
+    );
+  }
+  
+  #evo_chain > div {
+    padding: 10px;
+  }
+
+
+	/* //// LEFT PART //// */
+
+	div#curve1_left
+	{
+		width: calc(201*1.7px);
+		height: calc(85*1.7px);
+		background-color: #d44432;
+		float: left;
+		padding: calc(15*1.7px) 0 0 calc(15*1.7px);
+
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		box-shadow: -10px 9px #82271c;
+		-webkit-box-shadow: -10px 9px #82271c;
+		-moz-box-shadow: -10px 9px #82271c;
+		-o-box-shadow: -10px 9px #82271c;
+
+		border-bottom-right-radius: 85px 60px;
+		-webkit-border-bottom-right-radius: 85px 60px;
+		-moz-border-bottom-right-radius: 85px 60px;
+		-o-border-bottom-right-radius: 85px 60px;
+
+		border-top-left-radius: 30px;
+		-webkit-border-top-left-radius: 30px;
+		-moz-border-top-left-radius: 30px;
+		-o-border-top-left-radius: 30px;
+	}
+
+
+	div#bg_curve1_left
+	{
+		width: calc(400*1.7px);
+		height: calc(80*1.7px);
+		background-color: #d44432;
+        
+		border-top-left-radius: 30px;
+		-webkit-border-top-left-radius: 30px;
+		-moz-border-top-left-radius: 30px;
+		-o-border-top-left-radius: 30px;
+	}
+    
+    div#info_button {
+        position: relative;
+        padding: calc(10*1.7px);
+        z-index: 100;
+    }
+    
+    button {
+        float: right;
+        font-family: PokeGB;
+        background-color: #d44432;
+        border: 2px solid white;
+        color: white;
+        padding: 16px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10px;
+        margin: 4px 4px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        box-shadow: 0 10px 12px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+    
+    div#search_bar
+    {
+        position: absolute;
+        right: calc(11*1.7%);
+        height: calc(25*1.7px);
+        width: calc(133*1.7px);
+        z-index: 10000;
+    }
+    
+    label
+    {
+        font-family: "PokeGB";
+        color: white;
+    }
+
+	div#curve2_left
+	{
+		width: calc(216*1.7px);
+		height: calc(451*1.7px);
+		background-color: #d44432;
+		float: right;
+
+		position: absolute;
+		bottom: 0;
+		right: 0;
+
+		border-top-left-radius:85px 60px;
+		-webkit-border-top-left-radius: 85px 60px;
+		-moz-border-top-left-radius: 85px 60px;
+		-o-border-top-left-radius: 85px 60px;
+	}
+
+	div#bg_curve2_left
+	{
+		width: calc(400*1.7px);
+		height: calc(420*1.7px);
+		background-color: #d44432;
+
+		box-shadow: -10px 9px #82271c;
+		-webkit-box-shadow: -10px 9px #82271c;
+		-moz-box-shadow: -10px 9px #82271c;
+		-o-box-shadow: -10px 9px #82271c;
+
+		border-bottom-left-radius: 30px;
+		-webkit-border-bottom-left-radius: 30px;
+		-moz-border-bottom-left-radius: 30px;
+		-o-border-bottom-left-radius: 30px;
+	}
+
+	div#buttonGlass
+	{
+		width: calc(60*1.7px);
+		height: calc(60*1.7px);
+		margin-right: calc(15*1.7px);
+		border: 5px solid #FFF;
+		float: left;
+
+		box-shadow: 0 0 10px #490000;
+		-webkit-box-shadow: 0 0 10px #490000;
+		-moz-box-shadow: 0 0 10px #490000;
+		-o-box-shadow: 0 0 10px #490000;
+		
+		background: radial-gradient(#05fbfb, #29abe3);
+		background: -webkit-radial-gradient(#05fbfb, #29abe3);
+		background: -moz-radial-gradient(#05fbfb, #29abe3);
+		background: -o-radial-gradient(#05fbfb, #29abe3);
+		
+		border-radius: 35px;
+		-webkit-border-radius: 35px;
+		-moz-border-radius: 35px;
+	   	-o-border-radius: 35px;
+	}
+
+	div#reflect
+	{
+		width: calc(30*1.7px);
+		height: calc(18*1.7px);
+		margin: calc(3*1.7px) 0 0 calc(15*1.7px);
+		background: #FFF;
+		opacity: 0.6;
+
+		border-radius: 15px 9px;
+		-webkit-border-radius: 15px 9px;
+		-moz-border-radius: 15px 9px;
+	   	-o-border-radius: 15px 9px;
+		        
+	}
+
+	div#miniButtonGlass1
+	{
+		width: calc(20*1.7px);
+		height: calc(20*1.7px);
+		margin-right: calc(10*1.7px);
+		float: left;
+
+		box-shadow: 0 0 10px #490000;
+		-webkit-box-shadow: 0 0 10px #490000;
+		-moz-box-shadow: 0 0 10px #490000;
+		-o-box-shadow: 0 0 10px #490000;
+
+		border-radius: 20px;
+		-webkit-border-radius: 20px;
+		-moz-border-radius: 20px;
+		-o-border-radius: 20px;
+		
+		background: radial-gradient(#fb7b7b, #fb0505);
+		background: -webkit-radial-gradient(#fb7b7b, #fb0505);
+		background: -moz-radial-gradient(#fb7b7b, #fb0505);
+		background: -o-radial-gradient(#fb7b7b, #fb0505);
+	}
+
+	div#miniButtonGlass2
+	{
+		width: calc(20*1.7px);
+		height: calc(20*1.7px);
+		margin-right: calc(10*1.7px);
+		float: left;
+
+		box-shadow: 0 0 10px #490000;
+		-webkit-box-shadow: 0 0 10px #490000;
+		-moz-box-shadow: 0 0 10px #490000;
+		-o-box-shadow: 0 0 10px #490000;
+
+		border-radius: 20px;
+		-webkit-border-radius: 20px;
+		-moz-border-radius: 20px;
+		-o-border-radius: 20px;
+		
+		background: radial-gradient(#fbfb9b, #fbfb05);
+		background: -webkit-radial-gradient(#fbfb9b, #fbfb05);
+		background: -moz-radial-gradient(#fbfb9b, #fbfb05);
+		background: -o-radial-gradient(#fbfb9b, #fbfb05);
+	}
+
+	div#miniButtonGlass3
+	{
+		width: calc(20*1.7px);
+		height: calc(20*1.7px);
+		margin-right: calc(10*1.7px);
+		float: left;
+
+		box-shadow: 0 0 10px #490000;
+		-webkit-box-shadow: 0 0 10px #490000;
+		-moz-box-shadow: 0 0 10px #490000;
+		-o-box-shadow: 0 0 10px #490000;
+
+		border-radius: 20px;
+		-webkit-border-radius: 20px;
+		-moz-border-radius: 20px;
+		-o-border-radius: 20px;
+		
+		background: radial-gradient(#b0fb7b, #50fb05);
+		background: -webkit-radial-gradient(#b0fb7b, #50fb05);
+		background: -moz-radial-gradient(#b0fb7b, #50fb05);
+		background: -o-radial-gradient(#b0fb7b, #50fb05);
+	}
+
+	div#junction
+	{
+		width: calc(60*1.7px);
+		height: calc(450*1.7px);
+		float: right;
+        border: 1.7px solid black;
+		
+		background: linear-gradient(left, #d44432 0%, #c00d0d 50%, #d44432 100%);	
+		background: -webkit-linear-gradient(left, #d44432 0%, #c00d0d 50%, #d44432 100%);
+		background: -moz-linear-gradient(left, #d44432 0%, #c00d0d 50%, #d44432 100%);
+		background: -o-linear-gradient(left, #d44432 0%, #c00d0d 50%, #d44432 100%);
+	}
+
+	div#junction1
+	{
+		height: calc(40*1.7px);
+		background-color: #d44432;
+		opacity: 0.3;
+		margin-top: calc(50*1.7px);
+		margin-bottom: calc(262*1.7px);
+
+		border-top: 2px solid #000;
+		border-bottom: 2px solid #000;
+	}
+
+	div#junction2
+	{
+		height: calc(40*1.7px);
+		background-color: #d44432;
+		opacity: 0.3;
+
+		border-top: 2px solid #000;
+		border-bottom: 2px solid #000;
+	}
+
+	div#screen
+	{
+		height: calc(365*1.7px);
+		width: calc(285*1.7px);
+		padding: calc(0*1.7px) calc(10*1.7px);
+		background-color: #b0b0b0;
+		float:left;
+
+		position: absolute;
+		top: calc(120*1.7px);
+		left: calc(19*1.7px);
+
+		border-radius: 15px;
+		-webkit-border-radius: 15px;
+		-moz-border-radius: 15px;
+		-o-border-radius: 15px;
+	}
+
+  input[type="text"] {
+    font-family: "PokeGB";
+    font-size: 10px;
+    height: 40px;
+    color: white;
+  }
+
+	div#picture
+	{
+		height: calc(342*1.7px);
+		width: calc(265*1.7px);
+		margin-top: 20px;
+		margin-bottom: calc(9*1.7px);
+		background-color: #fff;
+		border: 3px solid #494949;
+		clear: both;
+
+		border-radius: 15px;
+		-webkit-border-radius: 15px;
+		-moz-border-radius: 15px;
+		-o-border-radius: 15px;
+	}
+    
+    div#avatar
+    {
+        display: inline-block;
+        height: calc(110*1.7px);
+        width: calc(110*1.7px);
+        /*margin: calc(10*1.2px);*/
+    }
+    
+    div#pokeinfo
+    {
+        font-family: 'PokeGB';
+        display: inline-block;
+        float: right;
+        height: calc(110*1.7px);
+        width: calc(150*1.7px);
+        text-align: center;
+        /*margin: calc(10*1.2px);*/
+    }
+    
+    pre#pokedata
+    {
+        font-family: 'PokeGB';
+        font-size: 13px; 
+        line-height: 18px;
+        display: inline-block;
+        padding-top: 30px;
+        padding-left: 10px;
+        text-align: left;
+        white-space: pre-wrap;
+        width: 100%;
+    }
+    
+    div#radar_chart
+    {
+        height: 66%;
+        width: 99%;
+        overflow: hidden;
+        
+        border-radius: 0px 0px 15px 15px;
+		-webkit-border-radius: 0px 0px 15px 15px;
+		-moz-border-radius: 0px 0px 15px 15px;
+		-o-border-radius: 0px 0px 15px 15px;
+    }
+  
+    div#picture2
+	{
+		height: calc(345*1.7px);
+		width: calc(265*1.7px);
+		margin-top: calc(10*1.7px);
+		margin-bottom: calc(9*1.7px);
+		background-color: #fff;
+		border: 3px solid #494949;
+		clear: both;
+
+		border-radius: 15px;
+		-webkit-border-radius: 15px;
+		-moz-border-radius: 15px;
+		-o-border-radius: 15px;
+	}
+    
+    div#location_map 
+    {
+        height: auto;
+        width: 100%;
+        max-height: 330px;
+        /*margin: calc(10*1.2px);*/
+    }
+    
+    #location_map > img
+    {
+        height: auto;
+        width: auto;
+        max-height: 330px;
+        /*margin: calc(10*1.2px);*/
+    }
+    
+    div#location_name
+    {
+        text-align: center;
+        font-family: "PokeGB";
+        font-size: calc(6*1.7px);
+        margin-top: calc(6*1.7px);
+    }
+    
+    div#location_map img 
+    {
+        vertical-align: middle;
+        margin-top: calc(20*1.7px);
+        margin-left: auto;
+	    margin-right: auto;
+	    display: block;
+        border: calc(2*1.7px) solid #494949;
+        border-radius: calc(4*1.7px);
+        
+        width:100%;
+        max-width:350px;
+    }
+    
+    #evo_text {
+      font-family: "PokeGB";
+      font-size: 12px;
+      margin-top: 30px;
+      margin-left: 30px;
+      padding: 10px;
+    }
+
+	div#picture img
+	{
+		display: block;
+		margin: 0 auto;
+	}
+
+	div#topPicture
+	{
+		margin: 6px auto;
+		width: calc(40*1.7px);
+	}
+
+	div#buttontopPicture1, div#buttontopPicture2
+	{
+		height: calc(8*1.7px);
+		width: calc(8*1.7px);
+        margin-bottom: 4px;
+		background-color: #c00d0d;
+		border: 1px solid #000;
+		float: left;
+
+		border-radius: 15px;
+		-webkit-border-radius: 15px;
+		-moz-border-radius: 15px;
+		-o-border-radius: 15px;
+	}
+
+	div#buttontopPicture1
+	{
+		margin-right: calc(20*1.7px);
+	}
+
+	/* //// RIGHT PART //// */
+
+	div#curve1_right
+	{
+		width: calc(166*1.7px);
+		height: calc(451*1.7px);
+		background-color: #d44432;
+		float: right;
+
+		position: absolute;
+		bottom: 0;
+		left: 0;
+
+		border-top-right-radius: calc(85*1.7px) calc(60*1.7px);
+		-webkit-border-right-left-radius: calc(85*1.7px) calc(60*1.7px);
+		-moz-border-right-left-radius: calc(85*1.7px) calc(60*1.7px);
+		-o-border-right-left-radius: calc(85*1.7px) calc(60*1.7px);
+	}
+
+
+	div#bg_curve1_right
+	{
+		width: calc(350*1.7px);
+		height: calc(80*1.7px);
+		background-color: #fff;
+
+		border-top-right-radius: calc(30*1.7px);
+		-webkit-border-top-right-radius: calc(30*1.7px);
+		-moz-border-top-right-radius: calc(30*1.7px);
+		-o-border-top-right-radius: calc(30*1.7px);
+	}
+
+	div#curve2_right
+	{
+		width: calc(216*1.7px);
+		height: calc(100*1.7px);
+		background-color: #fff;
+		float: left;
+
+		position: absolute;
+		top: 0;
+		right: 0;
+
+		border-bottom-left-radius: calc(85*1.7px) calc(60*1.7px);
+		-webkit-border-bottom-left-radius: calc(85*1.7px) calc(60*1.7px);
+		-moz-border-bottom-left-radius: calc(85*1.7px) calc(60*1.7px);
+		-o-border-bottom-left-radius: calc(85*1.7px) calc(60*1.7px);
+	}
+
+	div#bg_curve2_right
+	{
+		width: calc(350*1.7px);
+		height: calc(420*1.7px);
+		background-color: #d44432;
+
+		border-bottom-right-radius: calc(30*1.7px);
+		-webkit-border-bottom-right-radius: calc(30*1.7px);
+		-moz-border-bottom-right-radius: calc(30*1.7px);
+		-o-border-bottom-right-radius: calc(30*1.7px);
+
+		box-shadow: -10px 9px #82271c;
+		-webkit-box-shadow: -10px 9px #82271c;
+		-moz-box-shadow: -10px 9px #82271c;
+		-o-box-shadow: -10px 9px #82271c;
+	}
+
+}
+
+@media handheld and (orientation:portrait), (max-width:768px) {
+
+	div#pokedex
+	{
+		width: calc(400*1.7px);
+	}
+
+	div#logo
+	{
+		width: calc(281*1.7px);
+		height: calc(99*1.7px);
+        background: url('./assets/imgs/logo/back_logo.png') no-repeat;
+        background-size: 420px 150px;
+		z-index: 1;
+
+		position: absolute;
+		top: calc(220*1.7px);
+		left: calc(47*1.7px);
+	}
+
+	div#left
+	{
+		width: calc(400*1.7px);
+		height: calc(500*1.7px);
+		float: left;
+		position: relative;
+		z-index: 1;
+		margin: 0 auto;
+	}
+
+	div#curve1_left
+	{
+		width: calc(201*1.7px);
+		height: calc(85*1.7px);
+		background-color: #d44432;
+		float: left;
+		padding: 15px 0 0 15px;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		box-shadow: 0 0 #82271c;
+		-webkit-box-shadow: 0 0 #82271c;
+		-moz-box-shadow: 0 0 #82271c;
+		-o-box-shadow: 0 0 #82271c;
+
+		border-bottom-right-radius: 85px 60px;
+		-webkit-border-bottom-right-radius: 85px 60px;
+		-moz-border-bottom-right-radius: 85px 60px;
+		-o-border-bottom-right-radius: 85px 60px;
+
+		border-top-left-radius: 30px;
+		-webkit-border-top-left-radius: 30px;
+		-moz-border-top-left-radius: 30px;
+		-o-border-top-left-radius: 30px;
+	}
+    
+    div#search_bar {
+        display: none;
+    }
+
+	div#bg_curve1_left
+	{
+		width: calc(400*1.7px);
+		height: calc(80*1.7px);
+		background-color: #d44432;
+
+		box-shadow: -10px 9px #82271c;
+		-webkit-box-shadow: -10px 9px #82271c;
+		-moz-box-shadow: -10px 9px #82271c;
+		-o-box-shadow: -10px 9px #82271c;
+
+		border-top-left-radius: 30px;
+		-webkit-border-top-left-radius: 30px;
+		-moz-border-top-left-radius: 30px;
+		-o-border-top-left-radius: 30px;
+	}
+    
+    div#junction
+	{
+		width: calc(60*1.7px);
+		height: calc(455*1.7px);
+		float: right;
+        border: 1px solid #000;
+		
+		background: linear-gradient(left, #d44432 0%, #c00d0d 50%, #d44432 100%);	
+		background: -webkit-linear-gradient(left, #d44432 0%, #c00d0d 50%, #d44432 100%);
+		background: -moz-linear-gradient(left, #d44432 0%, #c00d0d 50%, #d44432 100%);
+		background: -o-linear-gradient(left, #d44432 0%, #c00d0d 50%, #d44432 100%);
+	}
+
+	div#right, div#screen, div#bigbluebutton, div#barbutton1, div#barbutton2, div#cross
+	{
+		display: none;
+	}
+
+}
