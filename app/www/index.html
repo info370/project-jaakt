@@ -37,22 +37,91 @@ Used this crowd-sourced website for the location images/gifs
         <div id="bg_curve1_left">
             <h2>Dog Ownership Survey</h2>
             <div class="survey">
-              <div class="question">
-                <form action="">
-                  <p>
-                    This is an example question that would determine if a user should get a dog.
-                  </p>
-                  <input type="radio" name="test" value="test1"> Test 1<br>
-                  <input type="radio" name="test" value="test2"> Test 2<br>
-                  <input type="radio" name="test" value="test3"> Test 3<br>
-                  <p>
-                    This is an example question that would determine if a user should get a dog.
-                  </p>
-                  Age: <input type="text" name="lname"><br>
-                  <input type="submit" value="Submit">
-
-                </form> 
-              </div>
+              <form action="">
+                <div class="question">
+                  <h3>Personal Information</h3>
+                    <p>
+                      How old are you?
+                    </p>
+                    <input type="number" name="age"><br>
+                    <p>
+                      Have you previously owned a dog?
+                    </p>
+                    <input type="radio" name="experience" value="y">Yes
+  <input type="radio" name="experience" value="n">No<br>
+                    <p>
+                      How active are you?
+                    </p>
+                    Not active (we need to define) to Very active (we need to define)<br><input type="range" name="activity">
+                    <p>
+                      How much are you willing to spend on the dog per month?
+                    </p>
+                    Min to max (define precisely)<br><input type="range" name="budget">
+                </div>
+                <div class="question">
+                  <h3>Living Information</h3>
+                    <p>
+                      What is your residence like?
+                    </p>
+                    <input type="radio" name="residence" value="apartment">Apartment
+  <input type="radio" name="residence" value="house">House<br>
+                    <p>
+                      How hot does it get where you live?
+                    </p>
+                    Not hot (70 degrees -?) to very hot(100 degrees +?)<br><input type="range" name="hot">
+                    
+                    <p>
+                      How cold does it get where you live?
+                    </p>
+                    Not cold (70 degrees +?) to very cold(- degrees?)<br><input type="range" name="hot">
+                    
+                    <p>
+                      How active are you?
+                    </p>
+                    Not active (we need to define) to Very active (we need to define)<br><input type="range" name="activity">
+                    <p>
+                      Do you have a child younger than 12 in the family?
+                    </p>
+                    <input type="radio" name="child" value="y">Yes
+  <input type="radio" name="child" value="n">No<br>
+                    <p>
+                      Do you have a child younger than 12 in the family?
+                    </p>
+                    <input type="radio" name="child" value="y">Yes
+  <input type="radio" name="child" value="n">No<br>
+                    <p>
+                      How many other dogs do you have?
+                    </p>
+                    <input type="number" name="ndogs"><br>
+                </div>
+                <div class="question">
+                  <h3>Health Information</h3>
+                    <p>
+                      Are you looking to improve your physical wellbeing?
+                    </p>
+                    <input type="radio" name="physical" value="y">Yes
+  <input type="radio" name="physical" value="n">No<br>
+                    <p>
+                      Are you looking to improve your emotional/mental health?
+                    </p>
+                    <input type="radio" name="mental" value="y">Yes
+  <input type="radio" name="mental" value="n">No<br>
+                </div>
+                <div class="question">
+                  <h3>Dog Preference</h3>
+                    <p>
+                      What is your tolerance for howling/barking? 
+                    </p>
+                    No tolerance to very tolerant<br> 
+                    <input type="range" name="activity">
+                    <p>
+                      Are you or anyone in your family allergic to dogs?
+                    </p>
+                    <input type="radio" name="allergies" value="y">Yes
+  <input type="radio" name="allergies" value="n">No<br>
+                </div>
+                <input type="submit" value="Submit">
+              </form> 
             </div>
         </div>
       </div>
