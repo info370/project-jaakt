@@ -7,6 +7,18 @@
   font-weight: normal;
 }
 
+.vertical_divider:after {
+    background-image: url("http://dl10.glitter-graphics.net/pub/680/680100pcjm8tf9w8.gif");
+    content: "";
+    display: block;
+	position: absolute;
+	Height: 100%;
+	padding-top: 10px;
+	padding-bottom: 100px;
+	left: 50%;
+	width: 67px;
+}
+
 .footer a {
   color: #b3e5fc;
 }
@@ -28,7 +40,7 @@ h1, h2, .footer {
 
 .column {
     float: left;
-    width: 50%;
+	width: 50%;
 }
 
 /* Clear floats after the columns */

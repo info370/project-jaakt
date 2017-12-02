@@ -19,18 +19,6 @@ shinyServer(function(input, output) {
 
   # -- DATA HANDLING -------------------------------------------------------------------------------------
 
-  # Querys the api for the pokemon's data,
-  # reactively wrapped in its own function to avoid
-  # querying the API multiple times for each
-  # component that needs it
-  pokemon.query <- reactive({
-    if(input$pokemon == "") {
-      pokemon.query <- NULL
-    } else {
-      pokemon.query <- QueryApi(paste0("pokemon/", tolower(input$pokemon)))
-    }
-  })
-  
 
   # Creates the drop down dynamically from the
   # saved csv file of all pokemon names
