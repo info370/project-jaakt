@@ -8,15 +8,13 @@
 }
 
 .vertical_divider:after {
-    background-image: url("http://dl10.glitter-graphics.net/pub/680/680100pcjm8tf9w8.gif");
+    background: #b3e5fc;
     content: "";
     display: block;
-	position: absolute;
+    position: absolute;
 	Height: 100%;
-	padding-top: 10px;
-	padding-bottom: 100px;
 	left: 50%;
-	width: 67px;
+	width: 1.5px;
 }
 
 .footer a {
