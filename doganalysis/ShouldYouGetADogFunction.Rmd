@@ -17,10 +17,8 @@
   LivesWOthers <- 3.3325
   HasPriorOwnership <- 2 #?
   LowerWillingnessToPay <- -44.7118
-  HigherWillingnessToPay <- 44.7118
-    
 
-# Score Updated based on user inputs (from Shiny App Questionaire)  
+# Score updated based on user inputs (from Shiny App Questionaire)  
       
     # Q: How old are you? 
     
@@ -115,20 +113,17 @@
           Score <- Score +  LivesWOthers
         }
     
-    #Q: The average monthly cost of owning a dog is $171.24 (but can range from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
+    #Q: The average monthly cost of owning a dog is $171.24 (ranges from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
     
         # store Shiny input in variable
         ExpensesInput <- [returnedInput]
         
-        # willing/able to pay above monthly average
-        if (ExpensesInput == "Above") {
+        # willing/able to pay below monthly average
+        if (ExpensesInput == "Below") {
          Score <- Score +  LowerWillingnessToPay 
-        # willing/able to pay equal to monthly average
-        } else if (ExpensesInput == "Equal") {
-          Score <- Score +  0
-        # willing/able to pay under monthly average
+        # willing/able to pay equal or above monthly average
         } else {
-          Score <- Score +  HigherWillingnessToPay 
+          Score <- Score +  0
         }
     
 ## print the score to Shiny
