@@ -12,7 +12,7 @@ options(na.action = na.warn)
 # Create test set, each column representing a question in the "should you get a dog?" function
 Input.df <-  data.frame(AgeInput=integer(),HomeInput=integer(),MentalHealthInput=integer(),PhysicalHealthInput=integer(),LivingWithInput=integer(),AllergiesInput=integer(),PriorOwnershipInput=integer(),ExpensesInput=integer(), Score=double())
 # sample size (num of users to simulate)
-N <- 200 
+N <- 1000 
 
 # For each user (row) in test set, generate inputs to each question (column)
 for (i in 1:N) {
@@ -50,9 +50,8 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
   House <- 29.339743
   LivesAlone <- 3.778483333
   LivesWOthers <- 3.33245
-  HasPriorOwnership <- 2 #?
+  HasPriorOwnership <- 2 
   LowerWillingnessToPay <- -44.7118
-  HigherWillingnessToPay <- 0
 ```
 
 ## Calculate "should you get a dog?" score for test set
@@ -130,14 +129,14 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
       # has prior dog ownership
       if (PriorOwnershipInput == 0) {
         UserScore <- UserScore +  HasPriorOwnership
-      # has prior dog ownership
+      # does not have prior dog ownership
       } else {
-        UserScore <- UserScore +  LivesWOthers
+        UserScore <- UserScore +  0
       }
 
   #Q: The average monthly cost of owning a dog is $171.24 (ranges from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
       ExpensesInput <- Input.df$ExpensesInput[Input.df$id == i]
-      # willing/able to pay above monthly average
+      # willing/able to pay below monthly average
       if (ExpensesInput == 2) {
        UserScore <- UserScore +  LowerWillingnessToPay 
       # willing/able to pay equal or above monthly average
