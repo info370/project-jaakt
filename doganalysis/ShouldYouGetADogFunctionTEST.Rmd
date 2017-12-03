@@ -11,26 +11,31 @@ options(na.action = na.warn)
 ## Make test set
 ```{r}
 
+# Create test set, each column representing a specific user's inputs
 Input.df <-  data.frame(AgeInput=integer(),HomeInput=integer(),MentalHealthInput=integer(),PhysicalHealthInput=integer(),LivingWithInput=integer(),AllergiesInput=integer(),PriorOwnershipInput=integer(),ExpensesInput=integer(), Score=double())
-N <- 100 # sample size (num of rows to simulate)
+# sample size (num of users to simulate)
+N <- 100 
 
+# For each user in test set, generate their inputs 
 for (i in 1:N) {
-  # Generate random user inputs between -1 and 1
-
-  AgeInput <- sample(0:100, 1)
+  
+  # Generate random inputs 
+  AgeInput <- sample(0:100, 1) #number = age
   HomeInput <- sample(0:1, 1) #0 = house, 1=apartment
   MentalHealthInput <- sample(0:1, 1) #0 = yes, 1=no
   PhysicalHealthInput <- sample(0:1, 1) #0 = yes, 1=no
   LivingWithInput <- sample(0:1, 1) #0 = alone, 1=withOthers
   AllergiesInput <- sample(0:1, 1) #0 = yes, 1=no
   PriorOwnershipInput <- sample(0:1, 1) #0 = yes, 1=no
-  ExpensesInput <- sample(0:2, 1) #0 = above, 1=no, 2=below
+  ExpensesInput <- sample(0:2, 1) #0 = above, 1=equal, 2=below
   Score <- 0
+  
   x <- matrix(c(AgeInput, HomeInput, MentalHealthInput, PhysicalHealthInput, LivingWithInput, AllergiesInput, PriorOwnershipInput, ExpensesInput, Score), nrow = 1)
   
   # Add row to dataframe
   df.new = data.frame(x)
   Input.df <- rbind(Input.df, df.new)
+  
 }
 
 # Add numeric user id, as each row represents one user
@@ -42,7 +47,6 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
 
 ## set default weights
 ```{r}
-
   Elderly <- 25.5689
   Child <- 4.3575
   DesireMentalHealth <- 15.8612
@@ -54,20 +58,18 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
   HasPriorOwnership <- 2 #?
   LowerWillingnessToPay <- -44.7118
   HigherWillingnessToPay <- 44.7118
-    
 ```
 
-## calculate "should you get a dog?" score for test sample
+## Calculate "should you get a dog?" score for test set
 ```{r}
 
+# for each user in test set, calculate their "should you get a dog?" score
  for (i in 1:N) { 
    
     UserScore <- 0
   
   # Q: How old are you? 
-  
       AgeInput <- Input.df$AgeInput[Input.df$id == i]
-      
       # super elderly
       if (AgeInput >= 80) {
         UserScore <- UserScore + 0
@@ -139,9 +141,7 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
       }
 
   #Q: The average monthly cost of owning a dog is $171.24 (but can range from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
-  
       ExpensesInput <- Input.df$ExpensesInput[Input.df$id == i]
-      
       # willing/able to pay above monthly average
       if (ExpensesInput == 0) {
        UserScore <- UserScore +  LowerWillingnessToPay 
@@ -153,14 +153,14 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
         UserScore <- UserScore +  HigherWillingnessToPay 
       }
 
-  #test score
+  #set user's test score as calculated score
   Input.df$Score[Input.df$id == i] <- UserScore
   
 }
 ```
-## plot outcomes
+## Analyze Results
 ```{r}
-# Graph distribution of users and their outcomes
+# Plot distribution scores for all users in test set
 ScorePlot <- ggplot(Input.df, aes(id, Score)) + 
   geom_point()
 
@@ -169,9 +169,11 @@ ScorePlot <- ScorePlot  + geom_hline(yintercept = 0, color= "red")
 ScorePlot <- ScorePlot  + geom_hline(yintercept = mean(Input.df$Score), color="blue")
 ScorePlot 
 
+# Calculate the average score for test set
 AverageScore <- mean(Input.df$Score)
 print(AverageScore)
 
+# Calculate how many users should and should not get a dog
 ShouldGetADog <- count(Input.df, Input.df$Score > 0)
 print(ShouldGetADog)
 ```
