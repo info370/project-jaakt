@@ -1,15 +1,12 @@
 
-#"SHOULD YOU GET A DOG?"
-
-
-## PREP 
+# "SHOULD YOU GET A DOG?" function
 ```{r setup, include=FALSE}
+## set variables
 
-#set variables
-
-  # "should you get a dog"" recommendation score
+  # "Should you get a dog" recommendation score
   Score <- 0
   
+  # Default Weights
   Elderly <- 25.5689
   Child <- 4.3575
   DesireMentalHealth <- 15.8612
@@ -23,117 +20,119 @@
   HigherWillingnessToPay <- 44.7118
     
 
-# Q: How old are you? 
-
-    #store Shiny input in variable
-    AgeInput <- [returnedInput]
+# Score Updated based on user inputs (from Shiny App Questionaire)  
+      
+    # Q: How old are you? 
     
-    # super elderly
-    if (AgeInput >= 80) {
-      Score <- Score + 0
-    # elderly
-    } else if (AgeInput >= 65) {
-      Score <- Score + Elderly
-    # adult  
-    } else if (AgeInput > 18) {
-      Score <- Score + 0
-    # child
-    } else {
-      Score <- Score + Child
-    }
-
-#Q: What is your home like?
-
-    #store Shiny input in variable
-    HomeInput  <- [returnedInput]
+        #store Shiny input in variable
+        AgeInput <- [returnedInput]
+        
+        # super elderly
+        if (AgeInput >= 80) {
+          Score <- Score + 0
+        # elderly
+        } else if (AgeInput >= 65) {
+          Score <- Score + Elderly
+        # adult  
+        } else if (AgeInput > 18) {
+          Score <- Score + 0
+        # child
+        } else {
+          Score <- Score + Child
+        }
     
-    # lives in a house
-    if (HomeInput == "House") {
-      Score <- Score +  House
-    # lives in an apartment
-    } else {
-      Score <- Score +  0
-    }
-
-#Q: Do you desire Mental/Emotional health benefits from owning a dog?
-
-    #store Shiny input in variable
-    MentalHealthInput <- [returnedInput]
-
-    if (MentalHealthInput == "Yes") {
-      Score <- Score +  DesireMentalHealth
-    } else {
-      Score <- Score +  0
-    }
+    #Q: What is your home like?
     
-#Q: Do you desire Physical health benefits from owning a dog?
-
-    #store Shiny input in variable
-    PhysicalHealthInput<- [returnedInput]
-
-    if (PhysicalHealthInput == "Yes") {
-      Score <- Score +  DesirePhysicalHealth
-    } else {
-      Score <- Score +  0
-    }
+        #store Shiny input in variable
+        HomeInput  <- [returnedInput]
+        
+        # lives in a house
+        if (HomeInput == "House") {
+          Score <- Score +  House
+        # lives in an apartment
+        } else {
+          Score <- Score +  0
+        }
     
-#Q: Do you live alone?
-
-    #store Shiny input in variable
-    LivingWithInput <- [returnedInput]
-
-    # lives alone
-    if (LivingWithInput == "Yes") {
-      Score <- Score +  LivesAlone 
-    #lives with others
-    } else {
-      Score <- Score +  LivesWOthers
-    }
-
-#Q: Are you or anyone in your household allergic to dogs?
-
-    # store Shiny input in variable
-    AllergiesInput <- [returnedInput]
+    #Q: Do you desire Mental/Emotional health benefits from owning a dog?
     
-    # has allergies
-    if (AllergiesInput == "Yes") {
-      Score <- Score +  Allergies
-    # does not have allergies
-    } else {
-      Score <- Score +  0
-    }
-
-#Q: Have you owned a dog in the past?
-
-    # store Shiny input in variable
-    PriorOwnershipInput <- [returnedInput]
+        #store Shiny input in variable
+        MentalHealthInput <- [returnedInput]
     
-    # has prior dog ownership
-    if (PriorOwnershipInput == "Yes") {
-      Score <- Score +  HasPriorOwnership
-    # has prior dog ownership
-    } else {
-      Score <- Score +  LivesWOthers
-    }
-
-#Q: The average monthly cost of owning a dog is $171.24 (but can range from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
-
-    # store Shiny input in variable
-    ExpensesInput <- [returnedInput]
+        if (MentalHealthInput == "Yes") {
+          Score <- Score +  DesireMentalHealth
+        } else {
+          Score <- Score +  0
+        }
+        
+    #Q: Do you desire Physical health benefits from owning a dog?
     
-    # willing/able to pay above monthly average
-    if (ExpensesInput == "Above") {
-     Score <- Score +  LowerWillingnessToPay 
-    # willing/able to pay equal to monthly average
-    } else if (ExpensesInput == "Equal") {
-      Score <- Score +  0
-    # willing/able to pay under monthly average
-    } else {
-      Score <- Score +  HigherWillingnessToPay 
-    }
+        #store Shiny input in variable
+        PhysicalHealthInput<- [returnedInput]
     
-## print the score in Shiny
-print(score)
+        if (PhysicalHealthInput == "Yes") {
+          Score <- Score +  DesirePhysicalHealth
+        } else {
+          Score <- Score +  0
+        }
+        
+    #Q: Do you live alone?
+    
+        #store Shiny input in variable
+        LivingWithInput <- [returnedInput]
+    
+        # lives alone
+        if (LivingWithInput == "Yes") {
+          Score <- Score +  LivesAlone 
+        #lives with others
+        } else {
+          Score <- Score +  LivesWOthers
+        }
+    
+    #Q: Are you or anyone in your household allergic to dogs?
+    
+        # store Shiny input in variable
+        AllergiesInput <- [returnedInput]
+        
+        # has allergies
+        if (AllergiesInput == "Yes") {
+          Score <- Score +  Allergies
+        # does not have allergies
+        } else {
+          Score <- Score +  0
+        }
+    
+    #Q: Have you owned a dog in the past?
+    
+        # store Shiny input in variable
+        PriorOwnershipInput <- [returnedInput]
+        
+        # has prior dog ownership
+        if (PriorOwnershipInput == "Yes") {
+          Score <- Score +  HasPriorOwnership
+        # has prior dog ownership
+        } else {
+          Score <- Score +  LivesWOthers
+        }
+    
+    #Q: The average monthly cost of owning a dog is $171.24 (but can range from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
+    
+        # store Shiny input in variable
+        ExpensesInput <- [returnedInput]
+        
+        # willing/able to pay above monthly average
+        if (ExpensesInput == "Above") {
+         Score <- Score +  LowerWillingnessToPay 
+        # willing/able to pay equal to monthly average
+        } else if (ExpensesInput == "Equal") {
+          Score <- Score +  0
+        # willing/able to pay under monthly average
+        } else {
+          Score <- Score +  HigherWillingnessToPay 
+        }
+    
+## print the score to Shiny
+print(Score)
     
 ```
 
