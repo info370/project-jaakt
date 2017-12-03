@@ -5,18 +5,16 @@
 library(tidyverse)
 library(modelr)
 options(na.action = na.warn)
-
 ```
 
-## Make test set
+## Build a test set of sample users
 ```{r}
-
-# Create test set, each column representing a specific user's inputs
+# Create test set, each column representing a question in the "should you get a dog?" function
 Input.df <-  data.frame(AgeInput=integer(),HomeInput=integer(),MentalHealthInput=integer(),PhysicalHealthInput=integer(),LivingWithInput=integer(),AllergiesInput=integer(),PriorOwnershipInput=integer(),ExpensesInput=integer(), Score=double())
 # sample size (num of users to simulate)
 N <- 100 
 
-# For each user in test set, generate their inputs 
+# For each user (row) in test set, generate inputs to each question (column)
 for (i in 1:N) {
   
   # Generate random inputs 
@@ -32,17 +30,14 @@ for (i in 1:N) {
   
   x <- matrix(c(AgeInput, HomeInput, MentalHealthInput, PhysicalHealthInput, LivingWithInput, AllergiesInput, PriorOwnershipInput, ExpensesInput, Score), nrow = 1)
   
-  # Add row to dataframe
+  # Add user's inputs to test set
   df.new = data.frame(x)
   Input.df <- rbind(Input.df, df.new)
-  
 }
 
-# Add numeric user id, as each row represents one user
+# Assign each user an id
 Input.df$id <- seq.int(nrow(Input.df))
 names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHealthInput", "LivingWithInput", "AllergiesInput", "PriorOwnershipInput", "ExpensesInput", "Score", "id")
-
-
 ```
 
 ## set default weights
@@ -63,7 +58,7 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
 ## Calculate "should you get a dog?" score for test set
 ```{r}
 
-# for each user in test set, calculate their "should you get a dog?" score
+# For each user in test set, calculate their score using our "should you get a dog?" function
  for (i in 1:N) { 
    
     UserScore <- 0
@@ -94,7 +89,7 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
         UserScore <- UserScore +  0
       }
   
-  #Q: Do you desire Mental/Emotional health benefits from owning a dog?
+  #Q: Do you desire mental/emotional health benefits from owning a dog?
       MentalHealthInput <- Input.df$MentalHealthInput[Input.df$id == i]
       if (MentalHealthInput == 0) {
         UserScore <- UserScore +  DesireMentalHealth
@@ -102,7 +97,7 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
         UserScore <- UserScore +  0
       }
 
-  #Q: Do you desire Physical health benefits from owning a dog?
+  #Q: Do you desire physical health benefits from owning a dog?
       PhysicalHealthInput <- Input.df$PhysicalHealthInput[Input.df$id == i]
       if (PhysicalHealthInput == 0) {
         UserScore <- UserScore +  DesirePhysicalHealth
@@ -140,7 +135,7 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
         UserScore <- UserScore +  LivesWOthers
       }
 
-  #Q: The average monthly cost of owning a dog is $171.24 (but can range from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
+  #Q: The average monthly cost of owning a dog is $171.24 (ranges from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
       ExpensesInput <- Input.df$ExpensesInput[Input.df$id == i]
       # willing/able to pay above monthly average
       if (ExpensesInput == 0) {
@@ -153,20 +148,20 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
         UserScore <- UserScore +  HigherWillingnessToPay 
       }
 
-  #set user's test score as calculated score
+  # Set user's test score as calculated score
   Input.df$Score[Input.df$id == i] <- UserScore
   
 }
 ```
 ## Analyze Results
 ```{r}
-# Plot distribution scores for all users in test set
+# Plot distribution of scores for all users in test set
 ScorePlot <- ggplot(Input.df, aes(id, Score)) + 
   geom_point()
 
 ScorePlot <- ScorePlot + labs(x = "user")
-ScorePlot <- ScorePlot  + geom_hline(yintercept = 0, color= "red")
-ScorePlot <- ScorePlot  + geom_hline(yintercept = mean(Input.df$Score), color="blue")
+ScorePlot <- ScorePlot  + geom_hline(yintercept = 0, color= "red") #theshold: score = 0
+ScorePlot <- ScorePlot  + geom_hline(yintercept = mean(Input.df$Score), color="blue") #average score
 ScorePlot 
 
 # Calculate the average score for test set
