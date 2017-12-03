@@ -1,0 +1,143 @@
+
+FUNCTION FOR "SHOULD YOU GET A DOG?"
+
+```{r setup, include=FALSE}
+
+#set variables
+
+  # should you get a dog recommendation score
+  Score <- 0
+  
+  Elderly <- 25.5689
+  Child <- 4.3575
+  DesireMentalHealth <- 15.8612
+  DesirePhysicalHealth <- 8.3625
+  HasAllergies <- -6.45491
+  House <- 29.3397
+  LivesAlone <- 3.7785
+  LivesWOthers <- 3.3325
+  HasPriorOwnership <- 2 #?
+  LowerWillingnessToPay <- -44.7118
+  HigherWillingnessToPay <- 44.7118
+    
+  # test set
+  Input.df <- data.frame(1, 23, "House", "Yes", "Yes", "No", "No", "Yes", "Equal", Score)
+  
+  names(Input.df) <- c("RowID", "AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHealthInput", "LivingWithInput", "AllergiesInput", "PriorOwnershipInput", "ExpensesInput", "Score")
+  
+# Q: How old are you? 
+
+    #store Shiny input in variable
+    AgeInput <- Input.df$AgeInput
+    
+    # super elderly
+    if (AgeInput >= 80) {
+      Score <- Score + 0
+    # elderly
+    } else if (AgeInput >= 65) {
+      Score <- Score + Elderly
+    # adult  
+    } else if (AgeInput > 18) {
+      Score <- Score + 0
+    # child
+    } else {
+      Score <- Score + Child
+    }
+
+
+#Q: What is your home like?
+
+    #store Shiny input in variable
+    HomeInput <- Input.df$HomeInput
+    
+    # lives in a house
+    if (HomeInput == "House") {
+      Score <- Score +  House
+    # lives in an apartment
+    } else {
+      Score <- Score +  0
+    }
+
+#Q: Do you desire Mental/Emotional health benefits from owning a dog?
+
+    #store Shiny input in variable
+    MentalHealthInput <- Input.df$MentalHealthInput
+
+    if (MentalHealthInput == "Yes") {
+      Score <- Score +  DesireMentalHealth
+    } else {
+      Score <- Score +  0
+    }
+    
+#Q: Do you desire Physical health benefits from owning a dog?
+
+    #store Shiny input in variable
+    PhysicalHealthInput <- Input.df$PhysicalHealthInput
+    
+    if (PhysicalHealthInput == "Yes") {
+      Score <- Score +  DesirePhysicalHealth
+    } else {
+      Score <- Score +  0
+    }
+    
+#Q: Do you live alone?
+
+    #store Shiny input in variable
+    LivingWithInput <- Input.df$LivingWithInput
+    
+    # lives alone
+    if (LivingWithInput == "Yes") {
+      Score <- Score +  LivesAlone 
+    #lives with others
+    } else {
+      Score <- Score +  LivesWOthers
+    }
+
+#Q: Are you or anyone in your household allergic to dogs?
+
+    # store Shiny input in variable
+    AllergiesInput <- Input.df$AllergiesInput
+    
+    # has allergies
+    if (AllergiesInput == "Yes") {
+      Score <- Score +  Allergies
+    # does not have allergies
+    } else {
+      Score <- Score +  0
+    }
+
+#Q: Have you owned a dog in the past?
+
+    # store Shiny input in variable
+    PriorOwnershipInput <- Input.df$PriorOwnershipInput 
+    
+    # has prior dog ownership
+    if (PriorOwnershipInput == "Yes") {
+      Score <- Score +  HasPriorOwnership
+    # has prior dog ownership
+    } else {
+      Score <- Score +  LivesWOthers
+    }
+
+#Q: The average monthly cost of owning a dog is $171.24 (but can range from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
+
+    # store Shiny input in variable
+    ExpensesInput <- Input.df$ExpensesInput
+    
+    # willing/able to pay above monthly average
+    if (ExpensesInput == "Above") {
+     Score <- Score +  LowerWillingnessToPay 
+    # willing/able to pay equal to monthly average
+    } else if (ExpensesInput == "Equal") {
+      Score <- Score +  0
+    # willing/able to pay under monthly average
+    } else {
+      Score <- Score +  HigherWillingnessToPay 
+    }
+    
+#set that score as score
+Input.df$Score <- Score
+Input.df$Score    
+
+```
+
