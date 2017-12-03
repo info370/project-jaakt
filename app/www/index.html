@@ -15,13 +15,16 @@ Used this crowd-sourced website for the location images/gifs
 <head>
   <meta charset="UTF-8">
   <title>Should you get a dog?</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="input.css">
-  <link rel="stylesheet" href="bootstrap.css">
-  <script src="shinyjs/inject.js"></script>
   <script src="shared/jquery.js" type="text/javascript"></script>
   <script src="shared/shiny.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="shared/shiny.css"/>
+  <link href="shared/ionrangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
+  <link href="shared/ionrangeslider/css/ion.rangeSlider.skinShiny.css" rel="stylesheet" />
+  <script src="shared/ionrangeslider/js/ion.rangeSlider.min.js"></script>
+  <link href="css/shinyWidgets.css" rel="stylesheet" />
+  <script src="shared/strftime/strftime-min.js"></script>
+  <script src="js/shinyWidgets-bindings.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -33,104 +36,204 @@ Used this crowd-sourced website for the location images/gifs
       <caption>A data analysis by Akash, Ariadna, Jillian, Kathryn, Trevor</caption><br>
       <a href="http://www.glitter-graphics.com"><img src="http://dl9.glitter-graphics.net/pub/731/731679beewm00v24.gif" width=50 height=50 border=0></a>
     </div>
-    
+
     <div class="row">
       <div class="column">
-        <div id="bg_curve1_left">
-            <h2>Dog Ownership Survey</h2>
-            <div class="survey">
-              <form action="">
-                <div class="question">
-                  <h3>Personal Information</h3>
-                    <p>
-                      How old are you?
-                    </p>
-                    <input type="number" name="age"><br>
-                    <p>
-                      Have you previously owned a dog?
-                    </p>
-                    <input type="radio" name="experience" value="y">Yes
-  <input type="radio" name="experience" value="n">No<br>
-                    <p>
-                      How active are you?
-                    </p>
-                    Not active (we need to define) to Very active (we need to define)<br><input type="range" name="activity">
-                    <p>
-                      How much are you willing to spend on the dog per month?
-                    </p>
-                    Min to max (define precisely)<br><input type="range" name="budget">
+        <h2>Dog Ownership Survey</h2>
+        <div class="survey">
+          <div class="question">
+            <h3>Personal Information</h3>
+              <p>
+                How old are you?
+              </p>
+              <input id="age" type="number" class="form-control shiny-bound-input" value="0"><br>
+
+              <p>
+                Have you previously owned a dog?
+              </p>
+              <div id="priorOwn" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input">
+                <div class="shiny-options-group">
+                  <div class="radio">
+                    <label>
+                      <input id="priorOwn" type="radio" name="priorOwn" value="1" checked="checked">
+                      <span>Yes</span>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input id="priorOwn" type="radio" name="priorOwn" value="0">
+                      <span>No</span>
+                    </label>
+                  </div>
                 </div>
-                <div class="question">
-                  <h3>Living Information</h3>
-                    <p>
-                      What is your residence like?
-                    </p>
-                    <input type="radio" name="residence" value="apartment">Apartment
-  <input type="radio" name="residence" value="house">House<br>
-                    <p>
-                      Do you live somewhere that experiences extreme high temperatures?
-                    </p>
-                    <input type="radio" name="child" value="y">Yes
-                    <input type="radio" name="child" value="n">No<br> 
-                    <p>
-                      Do you live somewhere that experiences extreme high temperatures?
-                    </p>
-                    <input type="radio" name="child" value="y">Yes
-                    <input type="radio" name="child" value="n">No<br>  
-                    <p>
-                      How active are you?
-                    </p>
-                    Not active (we need to define) to Very active (we need to define)<br><input type="range" name="activity">
-                    <p>
-                      Do you have a child younger than 12 in the family?
-                    </p>
-                    <input type="radio" name="child" value="y">Yes
-  <input type="radio" name="child" value="n">No<br>
-                    <p>
-                      Do you have a child younger than 12 in the family?
-                    </p>
-                    <input type="radio" name="child" value="y">Yes
-  <input type="radio" name="child" value="n">No<br>
-                    <p>
-                      How many other dogs do you have?
-                    </p>
-                    <input type="number" name="ndogs"><br>
+              </div>
+
+              <p>
+                How active are you?<br>
+              </p>
+              <div class="form-group shiny-input-container">
+                  <input class="js-range-slider sw-slider-text irs-hidden-input shiny-bound-input" data-data-type="text" data-force-edges="true" data-from="0" data-from-fixed="false" data-from-shadow="false" data-grid="true" data-hide-min-max="false" data-keyboard="true" data-swvalues="[&quot;Not Very Active&quot;,&quot;Active&quot;,&quot;Very Active&quot;]" data-to-fixed="false" data-to-shadow="false" id="activeLvl" type="hidden" readonly="">
+              </div>
+
+              <p>
+                The average monthly cost of owning a dog is ____. Would you spend be wiling to spend this much, more, or less?
+              </p>
+              <div class="form-group shiny-input-container">
+                  <input class="js-range-slider sw-slider-text irs-hidden-input shiny-bound-input" data-data-type="text" data-force-edges="true" data-from="0" data-from-fixed="false" data-from-shadow="false" data-grid="true" data-hide-min-max="false" data-keyboard="true" data-swvalues="[&quot;Less&quot;,&quot;Equal&quot;,&quot;More&quot;]" data-to-fixed="false" data-to-shadow="false" id="income" type="hidden" readonly="">
+              </div>
+          </div>
+
+          <div class="question">
+            <h3>Living Information</h3>
+            <p>
+              Have you previously owned a dog?
+            </p>
+            <div id="homeType" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input">
+              <div class="shiny-options-group">
+                <div class="radio">
+                  <label>
+                    <input id="homeType" type="radio" name="homeType" value="apt" checked="checked">
+                    <span>Apartment</span>
+                  </label>
                 </div>
-                <div class="question">
-                  <h3>Health Information</h3>
-                    <p>
-                      Are you looking to improve your physical wellbeing?
-                    </p>
-                    <input type="radio" name="physical" value="y">Yes
-  <input type="radio" name="physical" value="n">No<br>
-                    <p>
-                      Are you looking to improve your emotional/mental health?
-                    </p>
-                    <input type="radio" name="mental" value="y">Yes
-  <input type="radio" name="mental" value="n">No<br>
+                <div class="radio">
+                  <label>
+                    <input id="homeType" type="radio" name="homeType" value="home">
+                    <span>Home</span>
+                  </label>
                 </div>
-                <div class="question">
-                  <h3>Dog Preference</h3>
-                    <p>
-                      What is your tolerance for howling/barking? 
-                    </p>
-                    No tolerance to very tolerant<br> 
-                    <input type="range" name="activity">
-                    <p>
-                      Are you or anyone in your family allergic to dogs?
-                    </p>
-                    <input type="radio" name="allergies" value="y">Yes
-  <input type="radio" name="allergies" value="n">No<br>
-                </div>
-                <input type="submit" value="Submit">
-              </form> 
+              </div>
             </div>
+
+            <p>
+              Do you have a child younger than 12 in the family?
+            </p>
+            <div id="children" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input">
+              <div class="shiny-options-group">
+                <div class="radio">
+                  <label>
+                    <input id="children" type="radio" name="children" value="1" checked="checked">
+                    <span>Yes</span>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input id="children" type="radio" name="children" value="0">
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              Do you own any dogs currently?
+            </p>
+            <div id="currDog" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input">
+              <div class="shiny-options-group">
+                <div class="radio">
+                  <label>
+                    <input id="currDog" type="radio" name="currDog" value="1" checked="checked">
+                    <span>Yes</span>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input id="currDog" type="radio" name="currDog" value="0">
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              Are you or anyone in your family allergic to dogs?
+            </p>
+            <div id="allergy" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input">
+              <div class="shiny-options-group">
+                <div class="radio">
+                  <label>
+                    <input id="allergy" type="radio" name="allergy" value="1" checked="checked">
+                    <span>Yes</span>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input id="allergy" type="radio" name="allergy" value="0">
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              Describe how hot it gets where you live:
+            </p>
+            <div class="form-group shiny-input-container">
+                <input class="js-range-slider sw-slider-text irs-hidden-input shiny-bound-input" data-data-type="text" data-force-edges="true" data-from="0" data-from-fixed="false" data-from-shadow="false" data-grid="true" data-hide-min-max="false" data-keyboard="true" data-swvalues="[&quot;Not Hot&quot;,&quot;Not very Hot&quot;,&quot;Hot&quot;,&quot;Kinda Hot&quot;,&quot;Very Hot&quot;]" data-to-fixed="false" data-to-shadow="false" id="hotScale" type="hidden" readonly="">
+            </div>
+
+            <p>
+              Describe how cold it gets where you live:
+            </p>
+            <div class="form-group shiny-input-container">
+                <input class="js-range-slider sw-slider-text irs-hidden-input shiny-bound-input" data-data-type="text" data-force-edges="true" data-from="0" data-from-fixed="false" data-from-shadow="false" data-grid="true" data-hide-min-max="false" data-keyboard="true" data-swvalues="[&quot;Not Cold&quot;,&quot;Not very Cold&quot;,&quot;Cold&quot;,&quot;Kinda Cold&quot;,&quot;Very Cold&quot;]" data-to-fixed="false" data-to-shadow="false" id="coldScale" type="hidden" readonly="">
+            </div>
+
+            <p>
+              Are you looking to improve your physical wellbeing?
+            </p>
+            <div id="physicalBen" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input">
+              <div class="shiny-options-group">
+                <div class="radio">
+                  <label>
+                    <input id="physicalBen" type="radio" name="physicalBen" value="1" checked="checked">
+                    <span>Yes</span>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input id="physicalBen" type="radio" name="physicalBen" value="0">
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              Are you looking to improve your emotional/mental health?
+            </p>
+            <div id="emotionalBen" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input">
+              <div class="shiny-options-group">
+                <div class="radio">
+                  <label>
+                    <input id="emotionalBen" type="radio" name="emotionalBen" value="1" checked="checked">
+                    <span>Yes</span>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input id="emotionalBen" type="radio" name="emotionalBen" value="0">
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              What would the ideal noise level for you be:
+            </p>
+            <div class="form-group shiny-input-container">
+                <input class="js-range-slider sw-slider-text irs-hidden-input shiny-bound-input" data-data-type="text" data-force-edges="true" data-from="0" data-from-fixed="false" data-from-shadow="false" data-grid="true" data-hide-min-max="false" data-keyboard="true" data-swvalues="[&quot;Absolute Silence&quot;,&quot;A Little Noise&quot;,&quot;Normal&quot;,&quot;Loud&quot;,&quot;Always Noisy&quot;]" data-to-fixed="false" data-to-shadow="false" id="noiseTol" type="hidden" readonly="">
+            </div>
+
+          </div>
         </div>
       </div>
       <div class="column">
         <div id="bg_curve1_right">
             <h2>Survey Results</h2>
             <div id="results">
+                <pre id="breeds" class="shiny-text-output"></pre>
             </div>
         </div>
       </div>
