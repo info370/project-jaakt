@@ -7,7 +7,7 @@
 
 #set variables
 
-  # should you get a dog recommendation score
+  # "should you get a dog"" recommendation score
   Score <- 0
   
   Elderly <- 25.5689
@@ -41,7 +41,6 @@
     } else {
       Score <- Score + Child
     }
-
 
 #Q: What is your home like?
 
