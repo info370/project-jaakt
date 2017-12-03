@@ -1,7 +1,5 @@
 
-#Simulation
-
-
+# Simulation
 ```{r setup, include=FALSE}
 # Packages
 library(tidyverse)
@@ -175,6 +173,5 @@ AverageScore <- mean(Input.df$Score)
 print(AverageScore)
 
 ShouldGetADog <- count(Input.df, Input.df$Score > 0)
-ShouldNotGetADog <- count(Input.df, Input.df$Score < 0)
-print
+print(ShouldGetADog)
 ```
