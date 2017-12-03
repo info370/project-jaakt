@@ -1,5 +1,6 @@
 
-#"SHOULD YOU GET A DOG?" TEST
+#Simulation
+
 
 ```{r setup, include=FALSE}
 # Packages
@@ -41,7 +42,7 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
 
 ```
 
-#set default weights
+## set default weights
 ```{r}
 
   Elderly <- 25.5689
@@ -58,7 +59,7 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
     
 ```
 
-# calculate "should you get a dog?" score for test sample
+## calculate "should you get a dog?" score for test sample
 ```{r}
 
  for (i in 1:N) { 
