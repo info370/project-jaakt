@@ -1,0 +1,179 @@
+
+#"SHOULD YOU GET A DOG?" TEST
+
+```{r setup, include=FALSE}
+# Packages
+library(tidyverse)
+library(modelr)
+options(na.action = na.warn)
+
+```
+
+## Make test set
+```{r}
+
+Input.df <-  data.frame(AgeInput=integer(),HomeInput=integer(),MentalHealthInput=integer(),PhysicalHealthInput=integer(),LivingWithInput=integer(),AllergiesInput=integer(),PriorOwnershipInput=integer(),ExpensesInput=integer(), Score=double())
+N <- 100 # sample size (num of rows to simulate)
+
+for (i in 1:N) {
+  # Generate random user inputs between -1 and 1
+
+  AgeInput <- sample(0:100, 1)
+  HomeInput <- sample(0:1, 1) #0 = house, 1=apartment
+  MentalHealthInput <- sample(0:1, 1) #0 = yes, 1=no
+  PhysicalHealthInput <- sample(0:1, 1) #0 = yes, 1=no
+  LivingWithInput <- sample(0:1, 1) #0 = alone, 1=withOthers
+  AllergiesInput <- sample(0:1, 1) #0 = yes, 1=no
+  PriorOwnershipInput <- sample(0:1, 1) #0 = yes, 1=no
+  ExpensesInput <- sample(0:2, 1) #0 = above, 1=no, 2=below
+  Score <- 0
+  x <- matrix(c(AgeInput, HomeInput, MentalHealthInput, PhysicalHealthInput, LivingWithInput, AllergiesInput, PriorOwnershipInput, ExpensesInput, Score), nrow = 1)
+  
+  # Add row to dataframe
+  df.new = data.frame(x)
+  Input.df <- rbind(Input.df, df.new)
+}
+
+# Add numeric user id, as each row represents one user
+Input.df$id <- seq.int(nrow(Input.df))
+names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHealthInput", "LivingWithInput", "AllergiesInput", "PriorOwnershipInput", "ExpensesInput", "Score", "id")
+
+
+```
+
+#set default weights
+```{r}
+
+  Elderly <- 25.5689
+  Child <- 4.3575
+  DesireMentalHealth <- 15.8612
+  DesirePhysicalHealth <- 8.3625
+  HasAllergies <- -6.45491
+  House <- 29.3397
+  LivesAlone <- 3.7785
+  LivesWOthers <- 3.3325
+  HasPriorOwnership <- 2 #?
+  LowerWillingnessToPay <- -44.7118
+  HigherWillingnessToPay <- 44.7118
+    
+```
+
+# calculate "should you get a dog?" score for test sample
+```{r}
+
+ for (i in 1:N) { 
+   
+    UserScore <- 0
+  
+  # Q: How old are you? 
+  
+      AgeInput <- Input.df$AgeInput[Input.df$id == i]
+      
+      # super elderly
+      if (AgeInput >= 80) {
+        UserScore <- UserScore + 0
+      # elderly
+      } else if (AgeInput >= 65) {
+        UserScore <- UserScore + Elderly
+      # adult  
+      } else if (AgeInput > 18) {
+        UserScore <- UserScore + 0
+      # child
+      } else {
+        UserScore <- UserScore + Child
+      }
+
+  #Q: What is your home like?
+      HomeInput <- Input.df$HomeInput[Input.df$id == i]
+      # lives in a house
+      if (HomeInput == 0) {
+        UserScore <- UserScore +  House
+      # lives in an apartment
+      } else {
+        UserScore <- UserScore +  0
+      }
+  
+  #Q: Do you desire Mental/Emotional health benefits from owning a dog?
+      MentalHealthInput <- Input.df$MentalHealthInput[Input.df$id == i]
+      if (MentalHealthInput == 0) {
+        UserScore <- UserScore +  DesireMentalHealth
+      } else {
+        UserScore <- UserScore +  0
+      }
+
+  #Q: Do you desire Physical health benefits from owning a dog?
+      PhysicalHealthInput <- Input.df$PhysicalHealthInput[Input.df$id == i]
+      if (PhysicalHealthInput == 0) {
+        UserScore <- UserScore +  DesirePhysicalHealth
+      } else {
+        UserScore <- UserScore +  0
+      }
+
+  #Q: Do you live alone?
+      LivingWithInput <- Input.df$LivingWithInput[Input.df$id == i]
+      # lives alone
+      if (LivingWithInput == 0) {
+        UserScore <- UserScore +  LivesAlone 
+      #lives with others
+      } else {
+        UserScore <- UserScore +  LivesWOthers
+      }
+
+  #Q: Are you or anyone in your household allergic to dogs?
+      AllergiesInput <- Input.df$AllergiesInput[Input.df$id == i]
+      # has allergies
+      if (AllergiesInput == 0) {
+        UserScore <- UserScore +  HasAllergies
+      # does not have allergies
+      } else {
+        UserScore <- UserScore +  0
+      }
+
+  #Q: Have you owned a dog in the past?
+      PriorOwnershipInput <- Input.df$PriorOwnershipInput[Input.df$id == i]
+      # has prior dog ownership
+      if (PriorOwnershipInput == 0) {
+        UserScore <- UserScore +  HasPriorOwnership
+      # has prior dog ownership
+      } else {
+        UserScore <- UserScore +  LivesWOthers
+      }
+
+  #Q: The average monthly cost of owning a dog is $171.24 (but can range from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount or above that amount for your dog?
+  
+      ExpensesInput <- Input.df$ExpensesInput[Input.df$id == i]
+      
+      # willing/able to pay above monthly average
+      if (ExpensesInput == 0) {
+       UserScore <- UserScore +  LowerWillingnessToPay 
+      # willing/able to pay equal to monthly average
+      } else if (ExpensesInput == 1) {
+        UserScore <- UserScore +  0
+      # willing/able to pay under monthly average
+      } else {
+        UserScore <- UserScore +  HigherWillingnessToPay 
+      }
+
+  #test score
+  Input.df$Score[Input.df$id == i] <- UserScore
+  
+}
+```
+## plot outcomes
+```{r}
+# Graph distribution of users and their outcomes
+ScorePlot <- ggplot(Input.df, aes(id, Score)) + 
+  geom_point()
+
+ScorePlot <- ScorePlot + labs(x = "user")
+ScorePlot <- ScorePlot  + geom_hline(yintercept = 0, color= "red")
+ScorePlot <- ScorePlot  + geom_hline(yintercept = mean(Input.df$Score), color="blue")
+ScorePlot 
+
+AverageScore <- mean(Input.df$Score)
+print(AverageScore)
+
+ShouldGetADog <- count(Input.df, Input.df$Score > 0)
+ShouldNotGetADog <- count(Input.df, Input.df$Score < 0)
+print
+```
