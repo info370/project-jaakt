@@ -33,6 +33,7 @@ shinyServer(function(input, output) {
     userValues$activeLvl <- input$activeLvl
     userValues$income <- input$income
     userValues$homeType <- input$homeType
+    userValues$liveAlone <- as.numeric(input$liveAlone)
     userValues$children <- as.numeric(input$children)
     userValues$currDog <- as.numeric(input$currDog)
     userValues$allergy <- as.numeric(input$allergy)

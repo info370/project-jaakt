@@ -76,7 +76,7 @@ Used this crowd-sourced website for the location images/gifs
               </div>
 
               <p>
-                The average monthly cost of owning a dog is ____. Would you spend be wiling to spend this much, more, or less?
+                The average monthly cost of owning a dog is $171.24. Would you spend be wiling to spend this much, more, or less?
               </p>
               <div class="form-group shiny-input-container">
                   <input class="js-range-slider sw-slider-text irs-hidden-input shiny-bound-input" data-data-type="text" data-force-edges="true" data-from="0" data-from-fixed="false" data-from-shadow="false" data-grid="true" data-hide-min-max="false" data-keyboard="true" data-swvalues="[&quot;Less&quot;,&quot;Equal&quot;,&quot;More&quot;]" data-to-fixed="false" data-to-shadow="false" id="income" type="hidden" readonly="">
@@ -100,6 +100,26 @@ Used this crowd-sourced website for the location images/gifs
                   <label>
                     <input id="homeType" type="radio" name="homeType" value="home">
                     <span>Home</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              Do you live alone?
+            </p>
+            <div id="liveAlone" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input">
+              <div class="shiny-options-group">
+                <div class="radio">
+                  <label>
+                    <input id="liveAlone" type="radio" name="liveAlone" value="1" checked="checked">
+                    <span>Yes</span>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input id="liveAlone" type="radio" name="liveAlone" value="0">
+                    <span>No</span>
                   </label>
                 </div>
               </div>
@@ -229,11 +249,40 @@ Used this crowd-sourced website for the location images/gifs
           </div>
         </div>
       </div>
+
       <div class="column">
-        <div id="bg_curve1_right">
+        <div id="result_column">
             <h2>Survey Results</h2>
             <div id="results">
-                <pre id="breeds" class="shiny-text-output"></pre>
+              <div class="breeds">
+                <figure>
+                  <img src="http://placehold.it/150x150" alt="" width="150" height="150">
+                  <figcaption>Breed Name 1 Here</figcaption>
+                </figure>
+                <figure>
+                  <img src="http://placehold.it/150x150" alt="" width="150" height="150">
+                  <figcaption>Breed Name 2 Here</figcaption>
+                </figure>
+                <figure>
+                  <img src="http://placehold.it/150x150" alt="" width="150" height="150">
+                  <figcaption>Breed Name 3 Here</figcaption>
+                </figure>
+              </div>
+              <div class="breeds">
+                <figure>
+                  <img src="http://placehold.it/150x150" alt="" width="150" height="150">
+                  <figcaption>Breed Name 1 Here</figcaption>
+                </figure>
+                <figure>
+                  <img src="http://placehold.it/150x150" alt="" width="150" height="150">
+                  <figcaption>Breed Name 2 Here</figcaption>
+                </figure>
+                <figure>
+                  <img src="http://placehold.it/150x150" alt="" width="150" height="150">
+                  <figcaption>Breed Name 3 Here</figcaption>
+                </figure>
+              </div>
+              <pre id="breeds" class="shiny-text-output"></pre>
             </div>
         </div>
       </div>
