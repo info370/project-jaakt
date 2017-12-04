@@ -80,8 +80,8 @@ shinyServer(function(input, output) {
     
     Score <- GenerateScore(userValues)
     cat("Should you get a dog? \n")
-    cat(paste0("Recomendation Score * : ", Score,"\n"))
-    cat(paste0("* This score is based on our analysis of benefits of dog ownership and factors of dog-compatability, while ths score is supported by data, one's experience with dog ownership is subjective and may differ. Our suggested breeds might not actually be the best breeds for you, and breeds we warn against might actually work well for you, depending on the many other personal factors."))
+    cat(paste0("Recommendation Score * : ", Score,"\n"))
+    cat(paste0("* This score is based on our analysis of benefits of dog ownership and factors of dog-compatibility. While ths score is supported by data, one's experience with dog ownership is subjective and may differ. Our suggested breeds might not actually be the best breeds for you, and breeds we warn against might actually work well for you, depending on the many other personal factors."))
   })
   
   output$imageT1 <- renderImage({
