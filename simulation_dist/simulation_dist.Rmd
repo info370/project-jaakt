@@ -1,0 +1,123 @@
+---
+title: "Simulation Distribution"
+output: html_notebook
+---
+
+Generate realistic sample set for the equation to test distribution of +/- values and see if it makes sense 
+
+Equation: y = (theta1 * x1) + (theta2 * x2) + ... + (theta7 * x7)
+
+- x being the form inputs (-1, 0 , 1)
+- theta being weights we decided
+- x is what we want to simulate 
+
+Install tidyverse from CRAN
+
+```{r}
+install.packages("tidyverse")
+```
+
+Load packages. modelr package wraps around base R’s modelling functions to make them work naturally in a pipe
+
+```{r}
+library(tidyverse)
+
+library(modelr)
+options(na.action = na.warn)
+```
+
+Assumptions:
+
+- An answer is equally likely it will be -1, 0, or 1, because we don’t know the probability for a user to choose one answer over another for a given question
+- Each question is independent of each other. Meaning, the answer to one question has no effect on another
+
+
+```{r}
+# Setup and initializations
+theta <- c(
+  15.861187, # Emotional/Mental (yes)
+  8.362460625, # Physical Health (yes)
+  -6.45491, # Allergies (yes)
+  25.568928, # Age (old)
+  4.3575, # Age (child)
+  29.339743, # House (yes)
+  3.778483333, # Family (alone)
+  3.33245, # Family (not alone)
+  2.0, # Prior Ownership (yes)
+  -44.7118 # Can't afford Avg $ Cost of dog (yes)
+)
+df <- data.frame(
+  mental=integer(), # Emotional/Mental (0 = no, 1 = yes)
+  physical=integer(), # Physical Health (0 = no, 1 = yes)
+  allergies=integer(), # Allergies (0 = no, 1 = yes)
+  age=integer(), # Age (child, adult, elderly, very elderly)
+  house=integer(), # House (0 = no, 1 = yes)
+  family=integer(), # Family (alone, not alone)
+  owner=integer(), # Prior Ownership (0 = no, 1 = yes)
+  financial=integer(), # Can't Afford (0 = no, 1 = yes)
+  y=double()) # score (outcome)
+header <- c("mental", "physical", "allergies", "age", "house", "family", "owner", "financial", "score")
+N <- 100 # sample size (num of rows)
+
+for (i in 1:N) {
+  # Generate random user inputs
+  mental <- sample(0:1, 1) * theta[1]
+  physical <- sample(0:1, 1) * theta[2]
+  allergies <- sample(0:1, 1) * theta[3]
+  age <- sample(1:4, 1)
+  if (age == 1) {
+    age <- theta[4]
+  } else if (age == 2) {
+    age <- theta[5]
+  } else {
+    age <- 0
+  }
+  house <- sample(0:1, 1) * theta[6]
+  family <- sample(0:1, 1)
+  if (family == 0) {
+    family <- theta[7]
+  } else {
+    family <- theta[8]
+  }
+  owner <- sample(0:1, 1) * theta[9]
+  financial <- sample(0:1, 1) * theta[10]
+
+  # Combine into equation
+  x <- matrix(c(mental, physical, allergies, age, house, family, owner, financial), nrow = 1)
+  y <- sum(x)
+  
+  # Add row to dataframe
+  df.new = data.frame(x, y)
+  df <- rbind(df, df.new)
+}
+
+# Update header
+colnames(df) <- header
+
+# Add numeric user id, as each row represents one user
+df$id <- seq.int(nrow(df))
+
+# Calculate average score
+avg.score <- sum(df$score)/N
+avg.score
+
+# Graph distribution of users and their outcomes
+ggplot(df, aes(id, score)) + 
+  xlab("User") +
+  ylab("Score") +
+  geom_point() +
+  geom_hline(yintercept = avg.score, colour = 4) +
+  geom_hline(yintercept = 0, colour = 2)
+
+```
+
+
+
+
+
+
+
+
+
+
+
