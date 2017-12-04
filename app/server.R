@@ -10,15 +10,16 @@
 # Akash's Working Directory
 # setwd("~/School/INFO370/project-jaakt/app/")
 # Ari's Working Directory
-#setwd("~/Desktop/school/info370/project-jaakt/app/")
+setwd("~/Desktop/school/info370/project-jaakt/app/")
 # Jill's Working Directory
-setwd("/Users/jillianhonrade/project-jaakt/app/")
+#setwd("/Users/jillianhonrade/project-jaakt/app/")
 
 
 library(shiny)
 suppressPackageStartupMessages(library(dplyr))
 library(shinyWidgets)
 source("./assets/scripts/BreedSelectionHelpers.R")
+source("./assets/scripts/ShouldYouGetADog.R")
 
 # Define server logic that recieves input and modifies an output
 shinyServer(function(input, output) {
@@ -50,6 +51,8 @@ shinyServer(function(input, output) {
     
     
     selectedBreeds <- GetBreeds(userValues, 3)
+    breedPicDF <- read.csv(file = "../doganalysis/doggo-pictures.csv", stringsAsFactors = FALSE)
+    
     cat("Top 3 Breeds: \n")
     cat(paste(selectedBreeds[,"Top"], collapse=", "))
     
@@ -72,7 +75,8 @@ shinyServer(function(input, output) {
     
     Score <- GenerateScore(userValues)
     cat("Should you get a dog? \n")
-    cat(paste0("Recomendation Score: ", Score,"\n"))
+    cat(paste0("Recomendation Score * : ", Score,"\n"))
+    cat(paste0("* This score is based on our analysis of benefits of dog ownership and factors of dog-compatability, while ths score is supported by data, one's experience with dog ownership is subjective and may differ. Our suggested breeds might not actually be the best breeds for you, and breeds we warn against might actually work well for you, depending on the many other personal factors."))
   })
   
   
