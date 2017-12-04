@@ -7,16 +7,16 @@
   Score <- 0
   
   # Default Weights
-  Elderly <- 25.5689
-  Child <- 4.3575
-  DesireMentalHealth <- 15.8612
-  DesirePhysicalHealth <- 8.3625
-  HasAllergies <- -6.45491
-  House <- 29.3397
-  LivesAlone <- 3.7785
-  LivesWOthers <- 3.3325
-  HasPriorOwnership <- 2 #?
-  LowerWillingnessToPay <- -44.7118
+  Elderly <- 15.816
+  Child <- 3.486
+  DesireMentalHealth <- 17.35419784
+  DesirePhysicalHealth <- 7.229100643
+  HasAllergies <- -5.81
+  House <- 9.71
+  LivesAlone <- 5.34
+  LivesWOthers <- 3.845
+  HasPriorOwnership <- 2 
+  LowerWillingnessToPay <- -27.25
 
 # Score updated based on user inputs (from Shiny App Questionaire)  
       
