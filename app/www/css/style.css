@@ -7,14 +7,8 @@
   font-weight: normal;
 }
 
-.vertical_divider:after {
-    background: #b3e5fc;
-    content: "";
-    display: block;
-    position: absolute;
-	Height: 100%;
-	left: 50%;
-	width: 1.5px;
+pre {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .footer a {
@@ -37,8 +31,32 @@ h1, h2, .footer {
 }
 
 .column {
-    float: left;
+  float: left;
 	width: 50%;
+}
+
+#result_column {
+  top: 2%;
+}
+
+#results {
+  text-align: center;
+}
+
+.breeds {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.breeds figure {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.breeds:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
 }
 
 /* Clear floats after the columns */
