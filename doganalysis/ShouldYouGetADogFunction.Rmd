@@ -18,7 +18,7 @@
   HasPriorOwnership <- 2 
   LowerWillingnessToPay <- -27.25
 
-# Score updated based on user inputs (from Shiny App Questionaire)  
+# Score updated based on user inputs (from Shiny App Form)  
       
     # Q: How old are you? 
     
@@ -57,19 +57,23 @@
         #store Shiny input in variable
         MentalHealthInput <- [returnedInput]
     
-        if (MentalHealthInput == "Yes") {
+        # desires mental/emotional health benefits
+        if (MentalHealthInput == 0 ) {
           Score <- Score +  DesireMentalHealth
+        # does not desire mental/emotional health benefits
         } else {
           Score <- Score +  0
         }
-        
+            
     #Q: Do you desire Physical health benefits from owning a dog?
     
         #store Shiny input in variable
         PhysicalHealthInput<- [returnedInput]
     
+        # desires physical health benefits
         if (PhysicalHealthInput == "Yes") {
           Score <- Score +  DesirePhysicalHealth
+        # desires not desire physical health benefits
         } else {
           Score <- Score +  0
         }

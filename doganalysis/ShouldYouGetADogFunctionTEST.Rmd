@@ -105,18 +105,22 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
   
   #Q: Do you desire mental/emotional health benefits from owning a dog?
       MentalHealthInput <- Input.df$MentalHealthInput[Input.df$id == i]
-      if (MentalHealthInput == 0) {
-        UserScore <- UserScore +  DesireMentalHealth
+      # desires mental/emotional health benefits
+      if (MentalHealthInput == 0 ) {
+          Score <- Score +  DesireMentalHealth
+      # does not desire mental/emotional health benefits
       } else {
-        UserScore <- UserScore +  0
+          Score <- Score +  0
       }
 
   #Q: Do you desire physical health benefits from owning a dog?
       PhysicalHealthInput <- Input.df$PhysicalHealthInput[Input.df$id == i]
-      if (PhysicalHealthInput == 0) {
-        UserScore <- UserScore +  DesirePhysicalHealth
+      # desires physical health benefits
+      if (PhysicalHealthInput == "Yes") {
+        Score <- Score +  DesirePhysicalHealth
+      # desires not desire physical health benefits
       } else {
-        UserScore <- UserScore +  0
+        Score <- Score +  0
       }
 
   #Q: Do you live alone?

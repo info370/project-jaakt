@@ -18,8 +18,7 @@ LivesWOthers <- 3.845
 HasPriorOwnership <- 2 
 LowerWillingnessToPay <- -27.25
 
-# Score updated based on user inputs (from Shiny App Questionaire)  
-
+# Score updates based on user inputs (from Shiny App Form)  
 GenerateScore <- function(userValues) {
 
     # Q: How old are you? 
@@ -47,7 +46,7 @@ GenerateScore <- function(userValues) {
     HomeInput  <- userValues$homeType
     
     # lives in a house
-    if (HomeInput == "House") {
+    if (HomeInput == "house") {
       Score <- Score +  House
       # lives in an apartment
     } else {
@@ -59,8 +58,10 @@ GenerateScore <- function(userValues) {
     #store Shiny input in variable
     MentalHealthInput <- userValues$emotionalBen
     
-    if (MentalHealthInput == "Yes") {
+    # desires mental/emotional health benefits
+    if (MentalHealthInput == 0 ) {
       Score <- Score +  DesireMentalHealth
+    # does not desire mental/emotional health benefits
     } else {
       Score <- Score +  0
     }
@@ -70,8 +71,10 @@ GenerateScore <- function(userValues) {
     #store Shiny input in variable
     PhysicalHealthInput<- userValues$physicalBen
     
-    if (PhysicalHealthInput == "Yes") {
+    # desires physical health benefits
+    if (PhysicalHealthInput == 0) {
       Score <- Score +  DesirePhysicalHealth
+    # desires not desire physical health benefits
     } else {
       Score <- Score +  0
     }
@@ -82,7 +85,7 @@ GenerateScore <- function(userValues) {
     LivingWithInput <- [returnedInput] #??????????
     
     # lives alone
-    if (LivingWithInput == "Yes") {
+    if (LivingWithInput == 0) {
       Score <- Score +  LivesAlone 
       #lives with others
     } else {
@@ -95,9 +98,9 @@ GenerateScore <- function(userValues) {
     AllergiesInput <- userValues$allergy
     
     # has allergies
-    if (AllergiesInput == "Yes") {
+    if (AllergiesInput == 0) {
       Score <- Score +  Allergies
-      # does not have allergies
+    # does not have allergies
     } else {
       Score <- Score +  0
     }
@@ -108,9 +111,9 @@ GenerateScore <- function(userValues) {
     PriorOwnershipInput <- userValues$priorOwn 
     
     # has prior dog ownership
-    if (PriorOwnershipInput == "Yes") {
+    if (PriorOwnershipInput == 0) {
       Score <- Score +  HasPriorOwnership
-      # does not have prior dog ownership
+    # does not have prior dog ownership
     } else {
       UserScore <- UserScore +  0
     }
@@ -123,12 +126,12 @@ GenerateScore <- function(userValues) {
     # willing/able to pay below monthly average
     if (ExpensesInput == "Below") {
       Score <- Score +  LowerWillingnessToPay 
-      # willing/able to pay equal or above monthly average
+    # willing/able to pay equal or above monthly average
     } else {
       Score <- Score +  0
     }
     
-    ## print the score to Shiny ???
-    print(Score)
+    ## return score value, so that it can be printed in Shiny
+    return(Score)
 
 }
