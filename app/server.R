@@ -10,7 +10,10 @@
 # Akash's Working Directory
 # setwd("~/School/INFO370/project-jaakt/app/")
 # Ari's Working Directory
-# setwd("~/Desktop/school/info370/project-jaakt/app/")
+#setwd("~/Desktop/school/info370/project-jaakt/app/")
+# Jill's Working Directory
+setwd("/Users/jillianhonrade/project-jaakt/app/")
+
 
 library(shiny)
 suppressPackageStartupMessages(library(dplyr))
@@ -63,9 +66,14 @@ shinyServer(function(input, output) {
     cat(paste0("Allergy: ", input$allergy,"\n"))
     cat(paste0("Hot Scale: ", input$hotScale,"\n"))
     cat(paste0("Cold Scale: ", input$coldScale,"\n"))
-    cat(paste0("Physical Benifits: ", input$physicalBen,"\n"))
-    cat(paste0("Emotional Benifits: ", input$emotionalBen,"\n"))
+    cat(paste0("Physical Benefits: ", input$physicalBen,"\n"))
+    cat(paste0("Emotional Benefits: ", input$emotionalBen,"\n"))
     cat(paste0("Noise Tolerance: ", input$noiseTol,"\n"))
+    
+    Score <- GenerateScore(userValues)
+    cat("Should you get a dog? \n")
+    cat(paste0("Recomendation Score: ", Score,"\n"))
   })
+  
   
 })
