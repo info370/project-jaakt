@@ -7,18 +7,18 @@
   Score <- 0
   
   # Default Weights
-  Elderly <- 25.5689
-  Child <- 4.3575
-  DesireMentalHealth <- 15.8612
-  DesirePhysicalHealth <- 8.3625
-  HasAllergies <- -6.45491
-  House <- 29.3397
-  LivesAlone <- 3.7785
-  LivesWOthers <- 3.3325
-  HasPriorOwnership <- 2 #?
-  LowerWillingnessToPay <- -44.7118
+  Elderly <- 15.816
+  Child <- 3.486
+  DesireMentalHealth <- 17.35419784
+  DesirePhysicalHealth <- 7.229100643
+  HasAllergies <- -5.81
+  House <- 9.71
+  LivesAlone <- 5.34
+  LivesWOthers <- 3.845
+  HasPriorOwnership <- 2 
+  LowerWillingnessToPay <- -27.25
 
-# Score updated based on user inputs (from Shiny App Questionaire)  
+# Score updated based on user inputs (from Shiny App Form)  
       
     # Q: How old are you? 
     
@@ -57,19 +57,23 @@
         #store Shiny input in variable
         MentalHealthInput <- [returnedInput]
     
-        if (MentalHealthInput == "Yes") {
+        # desires mental/emotional health benefits
+        if (MentalHealthInput == 0 ) {
           Score <- Score +  DesireMentalHealth
+        # does not desire mental/emotional health benefits
         } else {
           Score <- Score +  0
         }
-        
+            
     #Q: Do you desire Physical health benefits from owning a dog?
     
         #store Shiny input in variable
         PhysicalHealthInput<- [returnedInput]
     
+        # desires physical health benefits
         if (PhysicalHealthInput == "Yes") {
           Score <- Score +  DesirePhysicalHealth
+        # desires not desire physical health benefits
         } else {
           Score <- Score +  0
         }

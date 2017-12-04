@@ -9,6 +9,8 @@
 
 # Akash's Working Directory
 # setwd("~/School/INFO370/project-jaakt/app/")
+# Ari's Working Directory
+setwd("~/Desktop/school/info370/project-jaakt/app/")
 
 library(shiny)
 suppressPackageStartupMessages(library(dplyr))

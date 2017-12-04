@@ -12,7 +12,7 @@ options(na.action = na.warn)
 # Create test set, each column representing a question in the "should you get a dog?" function
 Input.df <-  data.frame(AgeInput=integer(),HomeInput=integer(),MentalHealthInput=integer(),PhysicalHealthInput=integer(),LivingWithInput=integer(),AllergiesInput=integer(),PriorOwnershipInput=integer(),ExpensesInput=integer(), Score=double())
 # sample size (num of users to simulate)
-N <- 1000 
+N <- 100 
 
 # For each user (row) in test set, generate inputs to each question (column)
 for (i in 1:N) {
@@ -42,16 +42,31 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
 
 ## set default weights
 ```{r}
-  Elderly <- 25.568928
-  Child <- 4.3575
-  DesireMentalHealth <- 15.861187
-  DesirePhysicalHealth <- 8.362460625
-  HasAllergies <- -6.45491
-  House <- 29.339743
-  LivesAlone <- 3.778483333
-  LivesWOthers <- 3.33245
+
+  #cohens d
+  Elderly <- 15.816
+  Child <- 3.486
+  DesireMentalHealth <- 17.35419784
+  DesirePhysicalHealth <- 7.229100643
+  HasAllergies <- -5.81
+  House <- 9.71
+  LivesAlone <- 5.34
+  LivesWOthers <- 3.845
   HasPriorOwnership <- 2 
-  LowerWillingnessToPay <- -44.7118
+  LowerWillingnessToPay <- -27.25
+  
+  # odds-ratio
+  # Elderly <- 25.568928
+  # Child <- 4.3575
+  # DesireMentalHealth <- 17.35419784
+  # DesirePhysicalHealth <- 8.362460625
+  # HasAllergies <- -6.45491
+  # House <- 29.339743
+  # LivesAlone <- 3.778483333
+  # LivesWOthers <- 3.33245
+  # HasPriorOwnership <- 2
+  # LowerWillingnessToPay <- -44.7118
+
 ```
 
 ## Calculate "should you get a dog?" score for test set
@@ -90,18 +105,22 @@ names(Input.df) <- c("AgeInput", "HomeInput", "MentalHealthInput", "PhysicalHeal
   
   #Q: Do you desire mental/emotional health benefits from owning a dog?
       MentalHealthInput <- Input.df$MentalHealthInput[Input.df$id == i]
-      if (MentalHealthInput == 0) {
-        UserScore <- UserScore +  DesireMentalHealth
+      # desires mental/emotional health benefits
+      if (MentalHealthInput == 0 ) {
+          Score <- Score +  DesireMentalHealth
+      # does not desire mental/emotional health benefits
       } else {
-        UserScore <- UserScore +  0
+          Score <- Score +  0
       }
 
   #Q: Do you desire physical health benefits from owning a dog?
       PhysicalHealthInput <- Input.df$PhysicalHealthInput[Input.df$id == i]
-      if (PhysicalHealthInput == 0) {
-        UserScore <- UserScore +  DesirePhysicalHealth
+      # desires physical health benefits
+      if (PhysicalHealthInput == "Yes") {
+        Score <- Score +  DesirePhysicalHealth
+      # desires not desire physical health benefits
       } else {
-        UserScore <- UserScore +  0
+        Score <- Score +  0
       }
 
   #Q: Do you live alone?
@@ -158,7 +177,7 @@ ScorePlot <- ggplot(Input.df, aes(id, Score)) +
 ScorePlot <- ScorePlot + labs(x = "user")
 ScorePlot <- ScorePlot  + geom_hline(yintercept = 0, color= "red") #theshold: score = 0
 ScorePlot <- ScorePlot  + geom_hline(yintercept = mean(Input.df$Score), color="blue") #average score
-ScorePlot 
+ScorePlot
 
 # Calculate the average score for test set
 AverageScore <- mean(Input.df$Score)
