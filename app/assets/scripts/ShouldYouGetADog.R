@@ -1,22 +1,27 @@
+# -- ShouldYouGetADog.R ------------------------------------#
+#                                                           #
+# Utility script with some functions to assist              #
+# in calculating the Recommendation Score for "Should       #
+# You Get A Dog?"                                           #
+# ----------------------------------------------------------#
 
-# "SHOULD YOU GET A DOG?" function
 
 ## set variables
 
-# "Should you get a dog" recommendation score
-Score <- 0
-
-# Default Weights
-Elderly <- 15.816
-Child <- 3.486
-DesireMentalHealth <- 17.35419784
-DesirePhysicalHealth <- 7.229100643
-HasAllergies <- -5.81
-House <- 9.71
-LivesAlone <- 5.34
-LivesWOthers <- 3.845
-HasPriorOwnership <- 2 
-LowerWillingnessToPay <- -27.25
+    # "Should you get a dog" recommendation score
+    Score <- 0
+    
+    # Default Weights
+    Elderly <- 15.816
+    Child <- 3.486
+    DesireMentalHealth <- 17.35419784
+    DesirePhysicalHealth <- 7.229100643
+    HasAllergies <- -5.81
+    House <- 9.71
+    LivesAlone <- 5.34
+    LivesWOthers <- 3.845
+    HasPriorOwnership <- 2 
+    LowerWillingnessToPay <- -27.25
 
 # Score updates based on user inputs (from Shiny App Form)  
 GenerateScore <- function(userValues) {
@@ -124,7 +129,7 @@ GenerateScore <- function(userValues) {
     ExpensesInput <- userValues$income
     
     # willing/able to pay below monthly average
-    if (ExpensesInput == "Below") {
+    if (ExpensesInput == "below") {
       Score <- Score +  LowerWillingnessToPay 
     # willing/able to pay equal or above monthly average
     } else {
