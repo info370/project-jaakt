@@ -13,6 +13,7 @@
 setwd("~/Desktop/school/info370/project-jaakt/app/")
 # Jill's Working Directory
 #setwd("/Users/jillianhonrade/project-jaakt/app/")
+# setwd("/Users/jillianhonrade/project-jaakt/app/")
 
 
 library(shiny)
