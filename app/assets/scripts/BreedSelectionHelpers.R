@@ -6,7 +6,7 @@
 # ----------------------------------------------------------#
 
 # setwd("~/School/INFO370/project-jaakt/app/")
-setwd("~/Desktop/school/info370/project-jaakt/app/")
+# setwd("~/Desktop/school/info370/project-jaakt/app/")
 
 # Sets number of features/columns
 NUM_OF_FEATURES <- 26
