@@ -79,6 +79,7 @@ shinyServer(function(input, output) {
     # cat(paste0("Noise Tolerance: ", input$noiseTol,"\n"))
     
     Score <- GenerateScore(userValues)
+    
     cat("\nShould you get a dog:")
     if (Score >= 0) {
       cat(paste0(" You should get a dog!\n"))
