@@ -35,8 +35,11 @@ h1, h2, .footer {
 	width: 50%;
 }
 
-#result_column {
+.result-column {
+  position: -webkit-sticky;
+  position: sticky;
   top: 2%;
+  border: 1px;
 }
 
 #results {

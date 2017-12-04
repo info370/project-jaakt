@@ -12,13 +12,14 @@
 # Ari's Working Directory
 #setwd("~/Desktop/school/info370/project-jaakt/app/")
 # Jill's Working Directory
-setwd("/Users/jillianhonrade/project-jaakt/app/")
+# setwd("/Users/jillianhonrade/project-jaakt/app/")
 
 
 library(shiny)
 suppressPackageStartupMessages(library(dplyr))
 library(shinyWidgets)
 source("./assets/scripts/BreedSelectionHelpers.R")
+source("./assets/scripts/ShouldYouGetADog.R")
 
 # Define server logic that recieves input and modifies an output
 shinyServer(function(input, output) {
