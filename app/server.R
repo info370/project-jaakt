@@ -52,7 +52,7 @@ shinyServer(function(input, output) {
     
     
     selectedBreeds <- GetBreeds(userValues, 3)
-    breedPicDF <- read.csv(file = "../doganalysis/doggo-pictures.csv", stringsAsFactors = FALSE)
+    
     
     cat("Top 3 Breeds: \n")
     cat(paste(selectedBreeds[,"Top"], collapse=", "))
