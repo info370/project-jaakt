@@ -31,8 +31,6 @@ breedNames <- breedDF[1]
 #
 # returns: a vector of weights for each column in the breed dataset
 GenerateWeightVector <- function(userValues) {
-  cat(file=stderr(), userValues$priorOwn, "TESTING I HATE R")
-  
   # Initalize vector with zeros for each column
   weightVector <- rep(0, NUM_OF_FEATURES)
   
