@@ -121,7 +121,7 @@ GenerateScore <- function(userValues) {
       Score <- Score +  HasPriorOwnership
     # does not have prior dog ownership
     } else {
-      UserScore <- UserScore +  0
+      Score <- Score +  0
     }
     
   #Q: The average monthly cost of owning a dog is $171.24 (ranges from $55.47 - $395.69). Would you be able/willing to pay equal to that amount, below that amount, or above that amount for your dog?
