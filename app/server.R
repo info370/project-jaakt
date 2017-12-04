@@ -10,7 +10,7 @@
 # Akash's Working Directory
 # setwd("~/School/INFO370/project-jaakt/app/")
 # Ari's Working Directory
-setwd("~/Desktop/school/info370/project-jaakt/app/")
+# setwd("~/Desktop/school/info370/project-jaakt/app/")
 # Jill's Working Directory
 #setwd("/Users/jillianhonrade/project-jaakt/app/")
 # setwd("/Users/jillianhonrade/project-jaakt/app/")
@@ -25,9 +25,11 @@ source("./assets/scripts/ShouldYouGetADog.R")
 # Define server logic that recieves input and modifies an output
 shinyServer(function(input, output) {
   # -- DATA HANDLING -------------------------------------------------------------------------------------
-
+  
   # -- FORM HANDLING ----------------------------------------------------------------------------------
   userValues <- reactiveValues()
+  
+  breedNames <- reactiveValues()
   
   # -- OUTPUT RENDERING ----------------------------------------------------------------------------------
   output$breeds <- renderPrint({
@@ -53,6 +55,8 @@ shinyServer(function(input, output) {
     
     selectedBreeds <- GetBreeds(userValues, 3)
     
+    breedNames$top <- selectedBreeds[,"Top"]
+    breedNames$bottom <- selectedBreeds[,"Bottom"]
     
     cat("Top 3 Breeds: \n")
     cat(paste(selectedBreeds[,"Top"], collapse=", "))
@@ -79,6 +83,33 @@ shinyServer(function(input, output) {
     cat(paste0("Recomendation Score * : ", Score,"\n"))
     cat(paste0("* This score is based on our analysis of benefits of dog ownership and factors of dog-compatability, while ths score is supported by data, one's experience with dog ownership is subjective and may differ. Our suggested breeds might not actually be the best breeds for you, and breeds we warn against might actually work well for you, depending on the many other personal factors."))
   })
+  
+  output$imageT1 <- renderImage({
+    filename <- normalizePath(file.path('./assets/images', paste0(breedNames$top[1], '.png')))
+    
+    list(src = filename,
+         width = 150,
+         height = 150,
+         alt = "")
+  }, deleteFile = FALSE)
+  
+  output$imageT2 <- renderImage({
+    filename <- normalizePath(file.path('./assets/images', paste0(breedNames$top[2], '.png')))
+    
+    list(src = filename,
+         width = 150,
+         height = 150,
+         alt = "")
+  }, deleteFile = FALSE)
+  
+  output$imageT3 <- renderImage({
+    filename <- normalizePath(file.path('./assets/images', paste0(breedNames$top[3], '.png')))
+    
+    list(src = filename,
+         width = 150,
+         height = 150,
+         alt = "")
+  }, deleteFile = FALSE)
   
   
 })
