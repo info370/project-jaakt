@@ -86,8 +86,11 @@ shinyServer(function(input, output) {
     } else {
       cat(paste0(" Maybe getting a dog isn't the best choice for you right now.\n"))
     }
-    cat(paste0("Recomendation Score * : ", Score,"\n"))
-    cat(paste0("\n* This score is based on our analysis of benefits of dog ownership and factors of dog-compatability,\n while ths score is supported by data, one's experience with dog ownership is subjective and may differ.\n Our suggested breeds might not actually be the best breeds for you, and breeds we warn against might\n actually work well for you, depending on the many other personal factors."))
+    cat(paste0("Recommendation Score * : ", Score,"\n"))
+  })
+  
+  output$note <- renderPrint({
+    cat(paste0("\n* This score is based on our analysis of benefits of dog ownership and factors of dog-compatibility. While this score is supported by data, one's experience with dog ownership is subjective and may differ. Our suggested breeds may not actually be the best breeds for you, and breeds we warn against may actually work well for you, depending on many other personal factors."))
   })
   
   output$imageT1 <- renderImage({

@@ -15,6 +15,11 @@ pre {
   color: #b3e5fc;
 }
 
+.note {
+  padding: 5px;
+  margin: 5px;
+}
+
 .top {
   border: 1.5px solid #b3e5fc;
   text-align: center;
